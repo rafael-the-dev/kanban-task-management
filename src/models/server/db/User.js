@@ -28,10 +28,12 @@ class User {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         await collections.USERS.insertOne({
+            boards: [],
             firstName,
             id: uuidV4(),
             lastName,
             password: hashedPassword,
+            teams: [],
             username
         })
     }

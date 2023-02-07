@@ -41,18 +41,21 @@ const SignUpContextProvider = ({ children }) => {
 
         const passwordObj  = id ? {} : { password: passwordRef.current };
 
-        const formData = new FormData();
+        const body = JSON.stringify(
+            {
+                ...details,
+                ...passwordObj,
+            }
+        );
 
-        Object.entries({
-            ...details,
-            ...passwordObj,
-            user: userRef.current
-        }).forEach(([ key, value]) => formData.append(key, value))
-        
-        const body = formData;
+        const options = {
+            body,
+            headers,
+            method: id ? "PUT" : "POST"
+        }
 
         try {
-            const res = await fetch(`/api/users/${id ?? ""}?user=${details['username']}`, { body, headers, method: id ? "PUT" : "POST" });
+            const res = await fetch(`/api/users/${id ?? ""}?user=${details['username']}`, options);
             setLoading(false);
             return res;
         } catch(e) {

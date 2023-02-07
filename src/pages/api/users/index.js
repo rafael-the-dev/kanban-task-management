@@ -4,7 +4,7 @@ const UserModel = require("src/models/server/db/User")
 
 const requestHandler = async (req, res, { mongoDbConfig }) => {
 
-    const { method } = req;
+    const { body, method } = req;
 
     switch(method) {
         case "GET": {
