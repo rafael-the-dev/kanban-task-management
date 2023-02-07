@@ -1,0 +1,26 @@
+
+a {
+    text-decoration: none;
+}
+
+.input {
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+@media screen and  (min-width: 768px) {
+    .mdW12 {
+        width: 48.53%;
+    }
+
+    .mdW13 {
+        width: 31.3333%;
+    }
+}
+
+@media screen and (min-width: 990px) {
+    .remove-px-10 {
+        padding-left: 5% !important;
+        padding-right: 5% !important;
+    }
+}
