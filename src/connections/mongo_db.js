@@ -27,18 +27,6 @@ const createMongoDBConnection = async () => {
             clusterDB = mongoDBConnection.db(process.env.MONGO_DB.name);
             
             mongoDBConfig.collections = {
-                BARMEN: clusterDB.collection(dbCollections.barmen ?? "barmen"),
-                CATEGORIES: clusterDB.collection(dbCollections.categories ?? "categories"),
-                CLIENT: clusterDB.collection(dbCollections.clients ?? "clients"),
-                PRODUCTS: clusterDB.collection(dbCollections.products),
-                PAYMENT_METHOD: clusterDB.collection(dbCollections.payment_method),
-                ROOMS: clusterDB.collection(dbCollections.rooms ?? "rooms"),
-                ROOMS_CLASSES: clusterDB.collection(dbCollections.rooms_classes ?? "rooms_classes"),
-                ROOMS_USES: clusterDB.collection(dbCollections.rooms_uses ?? "rooms_uses"),
-                SALES: clusterDB.collection(dbCollections.sales),
-                SUPPLIERS: clusterDB.collection(dbCollections.suppliers ?? "suppliers"),
-                SUPPLIERS_INVOICES: clusterDB.collection(dbCollections.suppliers_invoices ?? "suppliers_invoices"),
-                TABLES: clusterDB.collection(dbCollections.tables ?? "tables"),
                 USERS: clusterDB.collection(dbCollections.users ?? "users")
             };
 
