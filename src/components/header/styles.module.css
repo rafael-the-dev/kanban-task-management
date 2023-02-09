@@ -2,6 +2,11 @@
     color: #000 !important;
 }
 
+.logoContainer svg { 
+    height: 25px;
+    width: 25px;
+}
+
 @media screen and (min-width: 900px) {
     
 }

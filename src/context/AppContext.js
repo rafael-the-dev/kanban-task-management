@@ -1,13 +1,16 @@
-import React, { createContext, useCallback, useEffect, useRef, useState } from 'react';
+import * as React from 'react';
 
-export const AppContext = createContext();
+export const AppContext = React.createContext();
 AppContext.displayName = 'AppContext';
 
 export const AppContextProvider = ({ children }) => {
-   
+    const [ boards, setBoards ] = React.useState({ list: [] });
 
     return (
-        <AppContext.Provider value={{  }}>
+        <AppContext.Provider value={{ 
+            boards,
+            setBoards
+         }}>
             { children }
         </AppContext.Provider>
     );
