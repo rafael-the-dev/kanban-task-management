@@ -2,9 +2,13 @@ import * as React from "react";
 import classNames from "classnames"
 import Typography from "@mui/material/Typography"
 
-import Button from "../shared/button"
+import Button from "../shared/button";
+import CreateBoard from "../shared/create-board";
 
 const EmptyBoardsList = () => {
+    const onOpen = React.useRef(null);
+
+    const clickHandler = () => onOpen.current?.();
 
     return (
         <div className="flex flex-col h-full items-center justify-center ">
@@ -14,9 +18,11 @@ const EmptyBoardsList = () => {
                 No boards available
             </Typography>
             <Button
-                color="primary">
+                color="primary"
+                onClick={clickHandler}>
                 Create new board
             </Button>
+            <CreateBoard onOpen={onOpen} />
         </div>
     );
 };
