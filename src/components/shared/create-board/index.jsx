@@ -40,6 +40,13 @@ const CreateBoardContainer = ({ onOpen }) => {
         );
     }, []);
 
+    const addColumnButton = React.useMemo(() => (
+        <Button
+            color="primary">
+            Add column
+        </Button>
+    ), [])
+
     const nameInputMemo = React.useMemo(() => (
         <TextField 
             { ...name }
