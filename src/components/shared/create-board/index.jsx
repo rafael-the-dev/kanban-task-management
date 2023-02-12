@@ -4,6 +4,7 @@ import { v4 as uuidV4 } from "uuid"
 
 import classes from "./styles.module.css";
 
+import Button from "../button"
 import ColumnInput from "./components/column-name-input";
 import Dialog from "src/components/dialog";
 import DialogHeader from "src/components/dialog/components/dialog-header";
@@ -11,6 +12,8 @@ import TextField from "src/components/default-input";
 import { Typography } from "@mui/material";
 
 const CreateBoardContainer = ({ onOpen }) => {
+    //const {} = React.useContext();
+
     const [ columns, setColumns ] = React.useState([]);
     const [ name, setName ] = React.useState({ error: false, value: "" });
 
@@ -23,7 +26,7 @@ const CreateBoardContainer = ({ onOpen }) => {
             return [
                 ...columns,
                 {
-                    error: "",
+                    error: false,
                     id: uuidV4(),
                     value: "",
                 }
@@ -42,10 +45,12 @@ const CreateBoardContainer = ({ onOpen }) => {
 
     const addColumnButton = React.useMemo(() => (
         <Button
-            color="primary">
+            classes={{ button: "w-full" }}
+            color="primary"
+            onClick={createColumn}>
             Add column
         </Button>
-    ), [])
+    ), [ createColumn ])
 
     const nameInputMemo = React.useMemo(() => (
         <TextField 
@@ -109,6 +114,7 @@ const CreateBoardContainer = ({ onOpen }) => {
                 <fieldset className="mt-4">
                     { columnsTitleMemo }
                     { columnsInputsMemo }
+                    { addColumnButton }
                 </fieldset>
             </form>
         </Dialog>

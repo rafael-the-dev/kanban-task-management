@@ -9,6 +9,10 @@ import classes from "./styles.module.css";
 import TextField from "src/components/default-input";
 
 const ColumnInput = ({ error, id, setColumns, value }) => {
+    const helper = ({ onSuccess }) => {
+        
+    };
+
     const changeHandler = ({ target: { value }}) => {
         setColumns(columns => {
             const list = [ ...columns ];
@@ -20,7 +24,11 @@ const ColumnInput = ({ error, id, setColumns, value }) => {
             column.value = value;
 
             return list;
-        })
+        });
+    };
+
+    const deleteHandler = () => {
+        setColumns(columns => columns.filter(item => item.id !== id));
     };
 
     return (
@@ -34,7 +42,8 @@ const ColumnInput = ({ error, id, setColumns, value }) => {
                 placeholder="Insert column name"
                 value={value}
             />
-            <IconButton>
+            <IconButton
+                onClick={deleteHandler}>
                 <CloseIcon />
             </IconButton>
         </div>
