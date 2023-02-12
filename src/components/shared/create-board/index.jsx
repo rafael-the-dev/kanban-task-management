@@ -109,13 +109,19 @@ const CreateBoardContainer = ({ onOpen }) => {
                 onClose={closeHandler}>
                 Add new board
             </DialogHeader>
-            <form className="px-5 py-3">
-                { nameInputMemo }
-                <fieldset className="mt-4">
-                    { columnsTitleMemo }
-                    { columnsInputsMemo }
-                    { addColumnButton }
-                </fieldset>
+            <form className="">
+                <div className={classNames(classes.content, "overflow-y-auto px-5 py-3")}>
+                    { nameInputMemo }
+                    <fieldset className="mt-4">
+                        { columnsTitleMemo }
+                        { columnsInputsMemo }
+                        { addColumnButton }
+                    </fieldset>
+                </div>
+                <Button
+                    className="rounded-none w-full">
+                    Send
+                </Button>
             </form>
         </Dialog>
     );
