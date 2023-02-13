@@ -45,7 +45,7 @@ const CreateBoardContainer = ({ onOpen }) => {
 
     const addColumnButton = React.useMemo(() => (
         <Button
-            classes={{ button: "w-full" }}
+            classes={{ button: "bg-primary-200 py-2 shadow-none text-primary-700 w-full hover:bg-primary-600 hover:text-white" }}
             color="primary"
             onClick={createColumn}>
             Add column
@@ -109,8 +109,8 @@ const CreateBoardContainer = ({ onOpen }) => {
                 onClose={closeHandler}>
                 Add new board
             </DialogHeader>
-            <form className="">
-                <div className={classNames(classes.content, "overflow-y-auto px-5 py-3")}>
+            <form className="flex flex-col grow items-stretch justify-between">
+                <div className={classNames(classes.content, "grow overflow-y-auto px-5 py-3")}>
                     { nameInputMemo }
                     <fieldset className="mt-4">
                         { columnsTitleMemo }
@@ -119,7 +119,8 @@ const CreateBoardContainer = ({ onOpen }) => {
                     </fieldset>
                 </div>
                 <Button
-                    className="rounded-none w-full">
+                    color="primary"
+                    classes={{ button: "bg-primary-600 rounded-none w-full sm:py-3 hover:bg-primary-700" }}>
                     Send
                 </Button>
             </form>
