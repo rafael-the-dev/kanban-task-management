@@ -76,6 +76,7 @@ const CreateBoardContainer = ({ onOpen }) => {
                 columns.map(column => (
                     <ColumnInput 
                         { ...column }
+                        columns={columns}
                         key={column.id}
                         setColumns={setColumns}
                     />

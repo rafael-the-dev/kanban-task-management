@@ -8,7 +8,7 @@ import classes from "./styles.module.css";
 
 import TextField from "src/components/default-input";
 
-const ColumnInput = ({ error, id, setColumns, value }) => {
+const ColumnInput = ({ columns, error, id, setColumns, value }) => {
     const helper = ({ onSuccess }) => {
         
     };
@@ -43,6 +43,7 @@ const ColumnInput = ({ error, id, setColumns, value }) => {
                 value={value}
             />
             <IconButton
+                disabled={columns.length === 1}
                 onClick={deleteHandler}>
                 <CloseIcon />
             </IconButton>
