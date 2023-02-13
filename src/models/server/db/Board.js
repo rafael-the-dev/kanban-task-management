@@ -28,7 +28,7 @@ class Board {
     static async insert({ columns, name }, { mongoDbConfig, user }) {
         const { username } = user;
 
-        const userDetails = await UserModel.get({ username });
+        const userDetails = await UserModel.get({ username }, { mongoDbConfig });
 
         columns = validateColumns({ columns });
 

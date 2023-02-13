@@ -57,9 +57,9 @@ const apiHandler = (handler) => {
 
             let user = null;
             
-            /*if(!hasFreeAccess(req)) {
+            if(!hasFreeAccess(req)) {
                 user = Access.getUser(authorization ?? token);
-            }*/ 
+            }
 
             await handler(req, res, { user, mongoDbConfig });
         } catch(err) {

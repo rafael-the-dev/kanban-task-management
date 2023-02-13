@@ -1,5 +1,7 @@
 const { apiHandler } = require("src/middlewares/api-handler");
 
+const BoardModel = require("src/models/server/db/Board")
+
 const requestHandler = (req, res, { mongoDbConfig, user }) => {
     const {method } = req;
 

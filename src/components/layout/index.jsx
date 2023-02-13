@@ -8,7 +8,7 @@ import classes from "./styles.module.css";
 import ContextProvider from "./components/context-provider"
 import Header from "../header";
 //import Footer from "../footer";
-//import Loading from "./components/loading";
+import Loading from "./components/loading";
 import Menu from "../menu";
 import TokenDialog from "./components/TokenDialog"
 
@@ -20,7 +20,7 @@ const LayoutContainer = ({ children }) => {
 
     const tokenDialogMemo = React.useMemo(() => <TokenDialog />, [])
 
-    //if(loading) return <Loading loading={loading} setLoading={setLoading} />
+    if(loading) return <Loading loading={loading} setLoading={setLoading} />
 
     return (
         <div className={classNames(classes.root, `h-screen items-stretch xl:flex`)}>

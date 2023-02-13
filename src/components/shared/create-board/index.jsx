@@ -4,20 +4,26 @@ import { v4 as uuidV4 } from "uuid"
 
 import classes from "./styles.module.css";
 
+import { getAuthorizationHeader } from "src/helpers/queries";
+import { useLoading } from "src/hooks/useLoading"
+
 import Button from "../button"
 import ColumnInput from "./components/column-name-input";
 import Dialog from "src/components/dialog";
 import DialogHeader from "src/components/dialog/components/dialog-header";
+import MessageDialog from "../message-dialog"
 import TextField from "src/components/default-input";
 import { Typography } from "@mui/material";
 
 const CreateBoardContainer = ({ onOpen }) => {
     //const {} = React.useContext();
+    const { loading, setLoading } = useLoading();
 
     const [ columns, setColumns ] = React.useState([]);
     const [ name, setName ] = React.useState({ error: false, value: "" });
 
     const onClose = React.useRef(null);
+    const setDialogMessageRef = React.useRef(null);
 
     const closeHandler = React.useCallback(() => onClose.current?.(), []);
 
@@ -32,7 +38,50 @@ const CreateBoardContainer = ({ onOpen }) => {
                 }
             ]
         })
-    }, [])
+    }, []);
+
+    const submitHandler = async (e) => {
+        e.preventDefault();
+
+        setLoading(true);
+        let responseDialogMessage = {
+            description: "Board was successfully created.",
+            title: "Success",
+            type: "success"
+        }
+
+        const body = JSON.stringify(
+            {
+                columns: columns.map(({ id, value }) => ({ id, name: value })),
+                name: name.value,
+            }
+        );
+
+        const options = {
+            ...getAuthorizationHeader(),
+            body, 
+            method: "POST"
+        }
+
+        try {
+            const { status } = await fetch("/api/boards", options);
+
+            if(status >= 300 || status < 200) throw new Error();
+        }
+        catch(e) {
+            console.error(e);
+
+            responseDialogMessage = {
+                description: "Error while creating board, try again.",
+                title: "Error",
+                type: "error"
+            }
+        }
+        finally {
+            setLoading(false);
+            setDialogMessageRef.current?.(responseDialogMessage);
+        };
+    };
 
     const changeHandler = React.useCallback(({ target: { value }}) => {
         setName(
@@ -61,6 +110,12 @@ const CreateBoardContainer = ({ onOpen }) => {
             onChange={changeHandler}
         />
     ), [ name, changeHandler ]);
+
+    const messageDialogMemo = React.useMemo(() => (
+        <MessageDialog
+            setDialogMessage={setDialogMessageRef} 
+        />
+    ), [])
 
     const columnsTitleMemo = React.useMemo(() => (
         <Typography
@@ -110,7 +165,9 @@ const CreateBoardContainer = ({ onOpen }) => {
                 onClose={closeHandler}>
                 Add new board
             </DialogHeader>
-            <form className="flex flex-col grow items-stretch justify-between">
+            <form 
+                className="flex flex-col grow items-stretch justify-between"
+                onSubmit={submitHandler}>
                 <div className={classNames(classes.content, "grow overflow-y-auto px-5 py-3")}>
                     { nameInputMemo }
                     <fieldset className="mt-4">
@@ -121,10 +178,12 @@ const CreateBoardContainer = ({ onOpen }) => {
                 </div>
                 <Button
                     color="primary"
-                    classes={{ button: "bg-primary-600 rounded-none w-full sm:py-3 hover:bg-primary-700" }}>
-                    Send
+                    classes={{ button: "bg-primary-600 rounded-none w-full sm:py-3 hover:bg-primary-700" }}
+                    type="submit">
+                    { loading ? "Loading..." : "Send" }
                 </Button>
             </form>
+            { messageDialogMemo }
         </Dialog>
     );
 };
