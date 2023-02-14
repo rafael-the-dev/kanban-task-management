@@ -99,23 +99,23 @@ const TokenDialog = () => {
             customClose={() => {}}
             onClose={onClose}
             onOpen={onOpen}>
-            <div className={classNames(classes.container, "bg-blue-700 px-5 py-6")}>
+            <div className={classNames(classes.container, "bg-primary-700 px-5 py-6")}>
                 <Typography
                     className="mb-6 text-white">
                     Your session will expire in 5 minnutes.
                 </Typography>
-                <div className="flex justify-end">
+                <div className="flex flex-col items-stretch justify-end sm:flex-row-reverse">
                     <Button
-                        className="border-red-500 mr-3 text-red-500 hover:bg-red-500 hover:text-white"
-                        onClick={closeHandler}
-                        variant="outlined">
-                        Close
-                    </Button>
-                    <Button
-                        className="bg-blue-500 text-white hover:bg-blue-500 hover:opacity-70"
+                        className="bg-blue-500 mb-4 text-white hover:bg-blue-500 hover:opacity-70 sm:mb-0"
                         onClick={revalidateTokenHandler}
                         variant="contained">
                         Keep me logged in
+                    </Button>
+                    <Button
+                        className="border-red-500 sm:mr-3 text-red-500 hover:bg-red-500 hover:text-white"
+                        onClick={closeHandler}
+                        variant="outlined">
+                        Close
                     </Button>
                 </div>
             </div>

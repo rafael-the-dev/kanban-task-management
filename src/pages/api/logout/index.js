@@ -2,7 +2,7 @@ const AuthorizationError = require("src/models/server/errors/AuthorizationError"
 
 const Acess = require("src/models/server/Access");
 
-const { apiHandler } = require("src/middleware/api-handler");
+const { apiHandler } = require("src/middlewares/api-handler");
 
 const requestHandler = async (req, res, { mongoDbConfig }) => {
 
