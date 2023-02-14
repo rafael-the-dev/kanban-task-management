@@ -5,7 +5,8 @@ import { v4 as uuidV4 } from "uuid"
 import classes from "./styles.module.css";
 
 import { getAuthorizationHeader } from "src/helpers/queries";
-import { useLoading } from "src/hooks/useLoading"
+import { AppContext } from "src/context"
+import { useLoading } from "src/hooks/useLoading";
 
 import Button from "../button"
 import ColumnInput from "./components/column-name-input";
@@ -16,7 +17,8 @@ import TextField from "src/components/default-input";
 import { Typography } from "@mui/material";
 
 const CreateBoardContainer = ({ onOpen }) => {
-    //const {} = React.useContext();
+    const { fetchBoards } = React.useContext(AppContext);
+
     const { loading, setLoading } = useLoading();
 
     const [ columns, setColumns ] = React.useState([]);
@@ -67,6 +69,8 @@ const CreateBoardContainer = ({ onOpen }) => {
             const { status } = await fetch("/api/boards", options);
 
             if(status >= 300 || status < 200) throw new Error();
+
+            await fetchBoards();
         }
         catch(e) {
             console.error(e);
@@ -99,7 +103,15 @@ const CreateBoardContainer = ({ onOpen }) => {
             onClick={createColumn}>
             Add column
         </Button>
-    ), [ createColumn ])
+    ), [ createColumn ]);
+
+    const dialogHeaderMemo = React.useMemo(() => (
+        <DialogHeader
+            classes={{ root: classNames("capitalize pl-3")}}
+            onClose={closeHandler}>
+            Add new board
+        </DialogHeader>
+    ), [ closeHandler ])
 
     const nameInputMemo = React.useMemo(() => (
         <TextField 
@@ -160,11 +172,7 @@ const CreateBoardContainer = ({ onOpen }) => {
             classes={{ paper: classNames(classes.paper, `m-0`) }}
             onClose={onClose}
             onOpen={onOpen}>
-            <DialogHeader
-                classes={{ root: classNames("capitalize pl-3")}}
-                onClose={closeHandler}>
-                Add new board
-            </DialogHeader>
+            { dialogHeaderMemo }
             <form 
                 className="flex flex-col grow items-stretch justify-between"
                 onSubmit={submitHandler}>

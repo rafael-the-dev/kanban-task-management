@@ -24,6 +24,12 @@ const validateColumns = ({ columns }) => {
 };
 
 class Board {
+    static async getAll({ filter }, { mongoDbConfig, user: { username } }) {
+        const { boards } = await UserModel.get({ username }, { mongoDbConfig });
+
+        return { data: boards };
+
+    }
 
     static async insert({ columns, name }, { mongoDbConfig, user }) {
         const { username } = user;

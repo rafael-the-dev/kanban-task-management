@@ -6,6 +6,10 @@ const requestHandler = (req, res, { mongoDbConfig, user }) => {
     const {method } = req;
 
     switch(method) {
+        case "GET": {
+            return BoardModel.getAll({ }, { mongoDbConfig, user })
+                .then(data => res.json(data));
+        }
         case "POST": {
             const { body } = req;
             const { columns, name } = JSON.parse(body);
