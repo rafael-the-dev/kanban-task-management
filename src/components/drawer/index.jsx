@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState} from "react"
-import { Drawer } from "@mui/material"
+import Drawer from "@mui/material/Drawer"
 
-const Container = ({ anchor, children, classes, id, onOpen, onClose }) => {
+const Container = ({ anchor, children, classes, customClose, id, onOpen, onClose }) => {
     const [ open, setOpen ] = useState(false);
 
     const childrenMemo = useMemo(() => children, [ children ]);
@@ -22,7 +22,7 @@ const Container = ({ anchor, children, classes, id, onOpen, onClose }) => {
             anchor={ anchor ?? "right" }
             id={id}
             open={open}
-            onClose={closeHandler}
+            onClose={customClose ?? closeHandler}
             classes={classes}>
             { childrenMemo }
         </Drawer>

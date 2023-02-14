@@ -10,7 +10,8 @@ const BoardsList = () => {
 
     return (
         <div>
-            <Typography>
+            <Typography
+                className="mb-3 pl-3">
                 All boards ({ list.length })
             </Typography>
             <ul>

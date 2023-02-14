@@ -4,7 +4,7 @@ import classNames from "classnames";
 import Link from "../link";
 
 const ButtonContainer = ({ children, color, classes, href, variant, ...rest }) => {
-    const defaultColor = color ?? "primary";
+    const defaultColor = color ?? "default";
     const defaultVariant = variant ?? "contained";
     
     const variants = {

@@ -1,0 +1,9 @@
+
+.drawerRoot  div:first-child {
+    top: 49px !important;
+}
+
+.drawerPaper {
+    top: 65px !important;
+    width: 90%;
+}
