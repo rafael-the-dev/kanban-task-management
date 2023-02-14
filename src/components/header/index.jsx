@@ -14,7 +14,7 @@ import { LoginContext } from "src/context";
 import Avatar from "./components/avatar";
 import Image from "src/components/shared/image";
 import Link from "../link";
-import Menu from "src/components/menu";
+import Menu from "./components/menu";
 import SearchField from "./components/search-field";
 import Title from "../title";
 

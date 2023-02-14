@@ -7,11 +7,14 @@ AppContext.displayName = 'AppContext';
 
 export const AppContextProvider = ({ children }) => {
     const [ boards, setBoards ] = React.useState({ list: [] });
+    const [ board, setBoard ] = React.useState(null);
 
     const fetchBoards = React.useCallback(async () => {
         try {
             const { data } = await fetchHelper({ options: getAuthorizationHeader(), url: "/api/boards" });
             setBoards({ list: data });
+
+            if(data.length > 0) setBoard(data[0])
         }
         catch(e) {
             console.error(e);
@@ -24,9 +27,9 @@ export const AppContextProvider = ({ children }) => {
 
     return (
         <AppContext.Provider value={{ 
-            boards,
+            boards, board,
             fetchBoards,
-            setBoards
+            setBoards, setBoard
          }}>
             { children }
         </AppContext.Provider>
