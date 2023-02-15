@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 const ColumnContainer = ({ name, tasks }) => {
 
     return (
-        <li className={classNames(classes.container, `border border-solid border-stone-300 px-3 py-2 rounded-lg`)}>
+        <li className={classNames(classes.container, `border border-solid border-stone-300 mr-4 px-3 py-2 rounded-lg`)}>
             <div>
                 <Typography
                     className={classNames("text-stone-600")}
