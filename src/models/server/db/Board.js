@@ -11,12 +11,16 @@ const isValidName = ({ name }) => {
 };
 
 const validateColumns = ({ columns }) => {
+    const createdAt = new Date(Date.now()).toISOString();
+    
     const result = columns.map(({ id, name }) => {
         isValidName({ name }); // validate column name
 
         return {
+            createdAt,
             id: id ?? uuidV4(), // column id is optional to be provided by the user
-            name
+            name,
+            tasks: []
         }
     });
 
