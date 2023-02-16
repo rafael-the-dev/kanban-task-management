@@ -26,7 +26,7 @@ export const AppContextProvider = ({ children }) => {
 
     React.useEffect(() => {
         if(user) fetchBoards();
-    }, [ fetchBoards, user ])
+    }, [ fetchBoards, user ]);
 
     return (
         <AppContext.Provider value={{ 
