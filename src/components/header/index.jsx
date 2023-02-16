@@ -12,6 +12,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { LoginContext } from "src/context";
 
 import Avatar from "./components/avatar";
+import AddColumnTask from "./components/add-board-column-task";
 import Image from "src/components/shared/image";
 import Link from "../link";
 import Menu from "./components/menu";
@@ -41,7 +42,7 @@ const Header = () => {
                     </Hidden>
                 </div>
                 <div className="flex items-center pr-2 xl:pr-0">
-                    <Avatar />
+                    <AddColumnTask />
                 </div>
             </div>
         </header>
