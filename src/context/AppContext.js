@@ -1,11 +1,14 @@
 import * as React from 'react';
 
-import { fetchHelper, getAuthorizationHeader } from "src/helpers/queries"
+import { fetchHelper, getAuthorizationHeader } from "src/helpers/queries";
+import { LoginContext } from "./LoginContext"
 
 export const AppContext = React.createContext();
 AppContext.displayName = 'AppContext';
 
 export const AppContextProvider = ({ children }) => {
+    const { user } = React.useContext(LoginContext);
+
     const [ boards, setBoards ] = React.useState({ list: [] });
     const [ board, setBoard ] = React.useState(null);
 
@@ -22,8 +25,8 @@ export const AppContextProvider = ({ children }) => {
     }, []);
 
     React.useEffect(() => {
-        fetchBoards();
-    }, [ fetchBoards ])
+        if(user) fetchBoards();
+    }, [ fetchBoards, user ])
 
     return (
         <AppContext.Provider value={{ 

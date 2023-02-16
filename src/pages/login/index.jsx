@@ -21,7 +21,7 @@ import Input from 'src/components/Input';
 import Image from "src/components/shared/image";
 
 const Container = () => {
-    const { addUser } = useContext(LoginContext);
+    const { addUser, saveUserInfo } = useContext(LoginContext);
 
     const [ loading, setLoading ] = useState(false);
     const [ values, setValues ] = useState({
@@ -71,6 +71,7 @@ const Container = () => {
                 throw new Error();
             })
             .then(data => {
+                saveUserInfo(data);
                 addUser(data);
                 router.push("/")
             })

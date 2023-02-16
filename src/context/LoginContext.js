@@ -47,14 +47,15 @@ const LoginContextProvider = ({ children }) => {
         return;
     }, [ getLocalStorageData ]);
 
-    const saveUserInfo = useCallback(() => {
+    const saveUserInfo = useCallback((newUser) => {
         let savedData = getLocalStorageData();
+        const defaultUser = newUser ?? user;
 
-        if(user) {
-            document.cookie = `token=${user.access?.token}`
-            savedData = { ...savedData, user: user.access }
+        if(defaultUser) {
+            document.cookie = `token=${defaultUser.access?.token}`
+            savedData = { ...savedData, user: defaultUser.access }
         } else {
-            savedData = { ...savedData, user: {} }
+            savedData = { ...savedData, defaultUser: {} }
         }
 
         localStorage.setItem(process.env.LOCAL_STORAGE, JSON.stringify(savedData))
