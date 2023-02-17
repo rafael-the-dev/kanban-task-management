@@ -1,5 +1,6 @@
 const uuidV4 = require("uuid").v4;
 
+const Error404 = require("../errors/404Error");
 const InputFormatError = require("../errors/InvalidArgumentError")
 
 const UserModel = require("./User");
@@ -129,6 +130,38 @@ class Board {
                 filter: { username },
                 key: "boards",
                 value: boards
+            },
+            {
+                mongoDbConfig
+            }
+        )
+    }
+
+    static async update({ columns, id, name }, { mongoDbConfig, user }) {
+        const { username } = user;
+
+        const userDetails = await UserModel.get({ username }, { mongoDbConfig });
+
+        const board =  userDetails.boards.find(board => board.id === id);
+
+        if(!board) throw new Error404(`Board not found`);
+
+        board.name = name;
+        board.columns = columns.map(column => {
+            const boardColumn = board.columns.find(item => item.id === column.id);
+
+            if(!boardColumn) throw new Error404(`Column(${column.name}) not found`);
+
+            return {
+                ...boardColumn,
+                ...column
+            }
+        })   
+
+        await UserModel.update(
+            { 
+                filter: { username },
+                userObj: userDetails
             },
             {
                 mongoDbConfig

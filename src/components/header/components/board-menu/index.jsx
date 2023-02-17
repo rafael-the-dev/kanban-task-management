@@ -10,6 +10,7 @@ import classes from "./styles.module.css";
 
 import { AppContext } from "src/context";
 
+import EditBoard from "src/components/shared/create-board";
 import DeleteButton from "./components/delete-button";
 import Popover from "src/components/popover";
 
@@ -18,9 +19,11 @@ const BoardOptions = () => {
 
     const onClickRef = React.useRef(null);
     const onCloseRef = React.useRef(null);
+    const onOpenBoardDialog = React.useRef(null);
 
     const clickHandler = (e) => onClickRef.current?.(e);
     const closeHandler = () => onCloseRef.current?.();
+    const openBoardDialogHandler = () => onOpenBoardDialog.current?.();
 
     if(!board) return <></>;
 
@@ -31,6 +34,10 @@ const BoardOptions = () => {
                 onClick={clickHandler}>
                 <MoreIcon />
             </IconButton>
+            <EditBoard 
+                id={board.id}
+                onOpen={onOpenBoardDialog}
+            />
             <Popover
                 paperClassName={classNames(classes.paper)}
                 onClickRef={onClickRef}
@@ -39,6 +46,7 @@ const BoardOptions = () => {
                     <li>
                         <Button 
                             className="capitalize justify-start pl-2 text-primary-600 w-full hover:bg-primary-600 hover:text-white"
+                            onClick={openBoardDialogHandler}
                             startIcon={<EditIcon />}>
                             Edit board
                         </Button>

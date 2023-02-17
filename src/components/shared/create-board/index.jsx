@@ -16,14 +16,15 @@ import MessageDialog from "../message-dialog"
 import TextField from "src/components/default-input";
 import { Typography } from "@mui/material";
 
-const CreateBoardContainer = ({ onOpen }) => {
-    const { fetchBoards } = React.useContext(AppContext);
+const CreateBoardContainer = ({ id, onOpen }) => {
+    const { boards, fetchBoards } = React.useContext(AppContext);
 
     const { loading, setLoading } = useLoading();
 
     const [ columns, setColumns ] = React.useState([]);
     const [ name, setName ] = React.useState({ error: false, value: "" });
 
+    const boardRef = React.useRef(null);
     const onClose = React.useRef(null);
     const setDialogMessageRef = React.useRef(null);
 
@@ -46,8 +47,10 @@ const CreateBoardContainer = ({ onOpen }) => {
         e.preventDefault();
 
         setLoading(true);
+        const isUpdating = Boolean(boardRef.current);
+
         let responseDialogMessage = {
-            description: "Board was successfully created.",
+            description: `Board was successfully ${isUpdating ? "updated": "created"}.`,
             title: "Success",
             type: "success"
         }
@@ -62,21 +65,22 @@ const CreateBoardContainer = ({ onOpen }) => {
         const options = {
             ...getAuthorizationHeader(),
             body, 
-            method: "POST"
+            method: isUpdating ? "PUT" : "POST"
         }
 
         try {
-            const { status } = await fetch("/api/boards", options);
+            const { status } = await fetch(`/api/boards/${isUpdating ? boardRef.current.id : ""}`, options);
 
             if(status >= 300 || status < 200) throw new Error();
 
             await fetchBoards();
+            closeHandler();
         }
         catch(e) {
             console.error(e);
 
             responseDialogMessage = {
-                description: "Error while creating board, try again.",
+                description: `Error while ${isUpdating ? "updating" : "creating"} board, try again.`,
                 title: "Error",
                 type: "error"
             }
@@ -165,7 +169,24 @@ const CreateBoardContainer = ({ onOpen }) => {
         } catch(e) {
 
         }
-    }, [ createColumn ])
+    }, [ createColumn ]);
+
+    React.useEffect(() => {
+        if(id) {
+            const board = boards.list.find(board => board.id === id);
+            if(board) {
+                boardRef.current = board;
+
+                setName({ error: !Boolean(board.name), value: board.name });
+                
+                setColumns(
+                    board.columns
+                        .map(({ name, ...rest}) => ({ ...rest, error: !Boolean(name.trim()), value: name })
+                    )
+                );
+            }
+        }
+    }, [ boards, id ])
 
     return (
         <Dialog
