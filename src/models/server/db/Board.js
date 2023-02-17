@@ -147,16 +147,27 @@ class Board {
         if(!board) throw new Error404(`Board not found`);
 
         board.name = name;
-        board.columns = columns.map(column => {
+
+        // get all new columns
+        let newColumns = columns.filter(column => {
+            return !Boolean(board.columns.find(item => item.id === column.id));
+        });
+
+        // validate new columns
+        newColumns = validateColumns({ columns: newColumns });
+
+        const updatedOldColumns = columns.map(column => {
             const boardColumn = board.columns.find(item => item.id === column.id);
 
-            if(!boardColumn) throw new Error404(`Column(${column.name}) not found`);
+            if(!boardColumn) return [];
 
             return {
                 ...boardColumn,
                 ...column
             }
-        })   
+        }).flatMap(column => column);
+
+        board.columns = [ ...updatedOldColumns, ...newColumns ]
 
         await UserModel.update(
             { 

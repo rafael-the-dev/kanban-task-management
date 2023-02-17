@@ -8,8 +8,9 @@ import { getAuthorizationHeader } from "src/helpers/queries";
 import { AppContext } from "src/context"
 import { useLoading } from "src/hooks/useLoading";
 
+import AddColumnButton from "../add-list-item";
 import Button from "../button"
-import ColumnInput from "./components/column-name-input";
+import ColumnInput from "../removeable-input";
 import Dialog from "src/components/dialog";
 import DialogHeader from "src/components/dialog/components/dialog-header";
 import MessageDialog from "../message-dialog"
@@ -101,12 +102,10 @@ const CreateBoardContainer = ({ id, onOpen }) => {
     }, []);
 
     const addColumnButton = React.useMemo(() => (
-        <Button
-            classes={{ button: "bg-primary-200 py-2 shadow-none text-primary-700 w-full hover:bg-primary-600 hover:text-white" }}
-            color="primary"
+        <AddColumnButton
             onClick={createColumn}>
             Add column
-        </Button>
+        </AddColumnButton>
     ), [ createColumn ]);
 
     const dialogHeaderMemo = React.useMemo(() => (
@@ -147,9 +146,9 @@ const CreateBoardContainer = ({ id, onOpen }) => {
                 columns.map(column => (
                     <ColumnInput 
                         { ...column }
-                        columns={columns}
+                        list={columns}
                         key={column.id}
-                        setColumns={setColumns}
+                        setList={setColumns}
                     />
                 ))
             }
