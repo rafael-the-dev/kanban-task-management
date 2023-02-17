@@ -90,6 +90,25 @@ class Board {
         )
     }
 
+    static async delete({ id }, { mongoDbConfig, user }) {
+        const { username } = user;
+
+        const userDetails = await UserModel.get({ username }, { mongoDbConfig });
+
+        const boards =  userDetails.boards.filter(board => board.id !== id);      
+
+        await UserModel.update(
+            { 
+                filter: { username },
+                key: "boards",
+                value: boards
+            },
+            {
+                mongoDbConfig
+            }
+        )
+    }
+
     static async insert({ columns, name }, { mongoDbConfig, user }) {
         const { username } = user;
 
