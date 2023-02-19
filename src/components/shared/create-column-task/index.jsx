@@ -18,12 +18,13 @@ import TextField from "src/components/default-input";
 import { Typography } from "@mui/material";
 
 const CreateBoardContainer = ({ onOpen }) => {
-    const { fetchBoards } = React.useContext(AppContext);
+    const { board, fetchBoards } = React.useContext(AppContext);
 
     const { loading, setLoading } = useLoading();
 
-    const [ subTasks, setSubTasks ] = React.useState([]);
     const [ name, setName ] = React.useState({ error: false, value: "" });
+    const [ subTasks, setSubTasks ] = React.useState([]);
+    const [ taskColumn, setTaskColumn ] = React.useState("");
 
     const onClose = React.useRef(null);
     const setDialogMessageRef = React.useRef(null);
@@ -109,7 +110,7 @@ const CreateBoardContainer = ({ onOpen }) => {
         <DialogHeader
             classes={{ root: classNames("capitalize pl-3")}}
             onClose={closeHandler}>
-            Add new column
+            Add new task
         </DialogHeader>
     ), [ closeHandler ])
 
