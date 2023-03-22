@@ -1,9 +1,11 @@
 import * as React from "react";
 import classNames from "classnames";
+import Typography from "@mui/material/Typography";
 
 import classes from "./styles.module.css";
 
-import Typography from "@mui/material/Typography";
+import AddTask from "./components/add-column-task";
+import Task from "./components/task";
 
 const ColumnContainer = ({ name, tasks }) => {
 
@@ -16,6 +18,17 @@ const ColumnContainer = ({ name, tasks }) => {
                     { name } ({ tasks.length })
                 </Typography>
             </div>
+            <ul className="flex flex-col items-stretch mt-4">
+                {
+                    tasks.map(task => (
+                        <Task 
+                            { ...task }
+                            key={task.id}
+                        />
+                    ))
+                }
+                <AddTask />
+            </ul>
         </li>
     );
 };

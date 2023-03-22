@@ -1,6 +1,6 @@
 const { MongoClient } = require("mongodb");
 
-const mongoDBConfig = { 
+var mongoDBConfig = { 
     collections: {
         PRODUCTS: null,
         PAYMENTS_METHOD: null,

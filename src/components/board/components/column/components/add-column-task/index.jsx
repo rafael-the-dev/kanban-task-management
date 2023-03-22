@@ -16,9 +16,9 @@ const AddColumn = () => {
     return (
         <li className={classNames(classes.container, `border border-dashed border-primary-300 px-3 py-2 rounded-lg`)}>
             <Button 
-                className="h-full w-full"
+                className="h-full rounded-lg w-full"
                 onClick={clickHandler}>
-                <AddIcon className="text-4xl" />
+                <AddIcon className="text-2xl" />
             </Button>
             <CreateColumn onOpen={onOpen} />
         </li>
