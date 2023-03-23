@@ -7,3 +7,9 @@
     top: 65px !important;
     width: 90%;
 }
+
+@media screen and (min-width: 600px) {
+    .drawerPaper {
+        width: 400px;
+    }
+}

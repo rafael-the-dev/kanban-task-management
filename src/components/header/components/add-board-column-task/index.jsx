@@ -7,7 +7,8 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { AppContext } from "src/context";
 
-import CreateTask from "src/components/shared/create-column-task";
+import Dialog from "src/components/shared/create-column-task";
+import CreateTask from "src/components/shared/create-task";
 
 const CreateTaskButtonsContainer = () => {
     const { board } = React.useContext(AppContext);
@@ -35,7 +36,11 @@ const CreateTaskButtonsContainer = () => {
                     Add new task
                 </Button>
             </Hidden>
-            <CreateTask onOpen={onOpen} />
+            <Dialog 
+                onOpen={onOpen} 
+                title="Add new task">
+                <CreateTask />
+            </Dialog>
         </>
     );
 };

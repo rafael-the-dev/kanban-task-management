@@ -20,7 +20,18 @@ const AddColumn = () => {
                 onClick={clickHandler}>
                 <AddIcon className="text-2xl" />
             </Button>
-            <CreateColumn onOpen={onOpen} />
+            <CreateColumn
+                onOpen={onOpen} 
+                title="Add new task">
+                <CreateColumn.Form>
+                    <CreateColumn.Content>
+                        <CreateColumn.NameInput />
+                        <CreateColumn.DescriptionInput />
+                        <CreateColumn.Columns />
+                    </CreateColumn.Content>
+                    <CreateColumn.SubmitButton />
+                </CreateColumn.Form>
+            </CreateColumn>
         </li>
     );
 };

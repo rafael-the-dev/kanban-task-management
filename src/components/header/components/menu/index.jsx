@@ -29,7 +29,7 @@ const Menu = () => {
     const componentsMemo = React.useMemo(() => (
         <Drawer
             anchor="top"
-            classes={{ paper: classNames(classes.drawerPaper, `mx-auto py-3 rounded-lg`), root: classNames(classes.drawerRoot) }}
+            classes={{ paper: classNames(classes.drawerPaper, `mx-auto py-3 rounded-lg sm:ml-5`), root: classNames(classes.drawerRoot) }}
             customClose={toggleState}
             onClose={onCloseRef}
             onOpen={onOpenRef}>
@@ -38,6 +38,7 @@ const Menu = () => {
         </Drawer>
     ), [ toggleState ]);
 
+    // toggle drawer visibility
     React.useEffect(() => {
         open ? onOpenRef.current?.() : onCloseRef.current?.();
     }, [ open ])
