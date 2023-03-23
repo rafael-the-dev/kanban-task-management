@@ -11,7 +11,7 @@ export const AppContextProvider = ({ children }) => {
 
     const [ boards, setBoards ] = React.useState({ list: [] });
     const [ board, setBoard ] = React.useState(null);
-
+    console.log(boards)
     const boardRef = React.useRef(null);
 
     const fetchBoards = React.useCallback(async () => {

@@ -2,10 +2,11 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 
+import DueDate from "./components/due-date";
 import Description from "./components/description";
 import Title from "./components/title";
 
-const TaskContainer = ({ body, footer, header }) => {
+const TaskCard = ({ body, footer, header }) => {
 
     return (
         <li
@@ -23,10 +24,11 @@ const TaskContainer = ({ body, footer, header }) => {
     );
 };
 
-TaskContainer.Description = Description;
-TaskContainer.Title = Title;
+TaskCard.DueDate = DueDate;
+TaskCard.Description = Description;
+TaskCard.Title = Title;
 
-export default TaskContainer;
+export default TaskCard;
 
 /**
  * { description && <div>

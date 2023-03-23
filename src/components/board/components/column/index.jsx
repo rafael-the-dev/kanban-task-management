@@ -1,6 +1,7 @@
 import * as React from "react";
 import classNames from "classnames";
 import Typography from "@mui/material/Typography";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import classes from "./styles.module.css";
 
@@ -32,7 +33,11 @@ const ColumnContainer = ({ id, name, tasks }) => {
                                     <Task.Description>{ task.description }</Task.Description>
                                 </div>
                             }
-                            
+                            footer={
+                                <footer className="flex mt-4 justify-between">
+                                    <Task.DueDate date={task.createdAt} />
+                                </footer>
+                            }
                             key={task.id}
 
                         />
