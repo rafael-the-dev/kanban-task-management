@@ -6,26 +6,27 @@ import Typography from "@mui/material/Typography";
 
 import classes from "./styles.module.css";
 
-const TaskContainer = ({ description, name }) => {
+const TaskContainer = ({ description, title }) => {
 
     return (
         <li
-            className="">
-            <Button className="bg-white w-full hover:bg-primary-100">
+            className="mb-4 last:mb-0">
+            <Button className="bg-white justify-start normal-case px-4 py-3 rounded-lg text-left w-full first-letter:capitalize hover:bg-primary-100">
                 <Paper 
-                    className="bg-transparent"
+                    className="bg-transparent flex flex-col items-stretch"
                     elevation={0}>
                     <div>
                         <Typography
                             component="h3"
-                            className={classNames("overflow-hidden ")}>
-                            { name }
+                            className={classNames(classes.title, "font-semibold overflow-hidden text-ellipsis")}>
+                            { title }
                         </Typography>
                     </div>
                     <div>
                         <Typography
                             component="p"
-                            className={classNames(classes.description, "text-xl leading-7")}>
+                            className={classNames(classes.description, `font-normal mt-2 text-sm leading-6
+                                overflow-hidden text-ellipsis`)}>
                             { description }
                         </Typography>
                     </div>
