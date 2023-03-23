@@ -1,12 +1,11 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import classNames from "classnames";
 import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
 
-import classes from "./styles.module.css";
+import Description from "./components/description";
+import Title from "./components/title";
 
-const TaskContainer = ({ description, title }) => {
+const TaskContainer = ({ body, footer, header }) => {
 
     return (
         <li
@@ -15,30 +14,32 @@ const TaskContainer = ({ description, title }) => {
                 <Paper 
                     className="bg-transparent flex flex-col items-stretch"
                     elevation={0}>
-                    <div>
-                        <Typography
-                            component="h3"
-                            className={classNames(classes.title, "font-semibold overflow-hidden text-ellipsis")}>
-                            { title }
-                        </Typography>
-                    </div>
-                    <div>
-                        <Typography
-                            component="p"
-                            className={classNames(classes.description, `font-normal mt-2 text-sm leading-6
-                                overflow-hidden text-ellipsis`)}>
-                            { description }
-                        </Typography>
-                    </div>
-                    <div>
-                        <Typography>
-                            { name }
-                        </Typography>
-                    </div>
+                    { header }
+                    { body }
+                    { footer }
                 </Paper>
             </Button>
         </li>
     );
 };
 
+TaskContainer.Description = Description;
+TaskContainer.Title = Title;
+
 export default TaskContainer;
+
+/**
+ * { description && <div>
+                        <Typography
+                            component="p"
+                            className={classNames(classes.description, `font-normal mt-2 text-sm leading-6
+                                overflow-hidden text-ellipsis`)}>
+                            { description }
+                        </Typography>
+                    </div> }
+                    <div>
+                        <Typography>
+                            { name }
+                        </Typography>
+                    </div>
+ */

@@ -22,8 +22,19 @@ const ColumnContainer = ({ id, name, tasks }) => {
                 {
                     tasks.map(task => (
                         <Task 
-                            { ...task }
+                            header={
+                                <header>
+                                    <Task.Title>{ task.title }</Task.Title>
+                                </header>
+                            }
+                            body={
+                                <div>
+                                    <Task.Description>{ task.description }</Task.Description>
+                                </div>
+                            }
+                            
                             key={task.id}
+
                         />
                     ))
                 }
