@@ -8,7 +8,7 @@ import classes from "./styles.module.css";
 
 import CreateColumn from "src/components/shared/create-column-task";
 
-const AddColumn = () => {
+const AddColumn = ({ columnId }) => {
     const onOpen = React.useRef(null);
 
     const clickHandler = () => onOpen.current?.();
@@ -21,6 +21,7 @@ const AddColumn = () => {
                 <AddIcon className="text-2xl" />
             </Button>
             <CreateColumn
+                columnId={columnId}
                 onOpen={onOpen} 
                 title="Add new task">
                 <CreateColumn.Form>

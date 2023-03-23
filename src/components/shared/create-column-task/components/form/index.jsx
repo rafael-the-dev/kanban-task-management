@@ -8,7 +8,7 @@ import MessageDialog from "src/components/shared/message-dialog";
 
 const Form = ({ children }) => {
     const { board, fetchBoards } = React.useContext(AppContext);
-    const { name, subTasks, setLoading } = React.useContext(ColumnContext);
+    const { boardColumnId, description, name, subTasks, setLoading } = React.useContext(ColumnContext);
 
     const setDialogMessageRef = React.useRef(null);
 
@@ -16,8 +16,18 @@ const Form = ({ children }) => {
         <MessageDialog
             setDialogMessage={setDialogMessageRef} 
         />
-    ), [])
+    ), []);
 
+    const getURL = React.useCallback(() => {
+        let url = `/api/boards/${board.id}`;
+
+        //concatenate /tasks slug if user is creating new task
+        if(boardColumnId.current) url += `/columns/${boardColumnId.current}/tasks`; 
+
+        return url;
+
+    }, [ board, boardColumnId ])
+       
     const submitHandler = async (e) => {
         e.preventDefault();
 
@@ -31,6 +41,7 @@ const Form = ({ children }) => {
 
         const body = JSON.stringify(
             {
+                ...( description ? { description: description.value } : {}),
                 subTasks: subTasks.map(({ id, value }) => ({ id, name: value })),
                 role: "CREATE_COLUMN",
                 title: name.value,
@@ -44,7 +55,7 @@ const Form = ({ children }) => {
         }
 
         try {
-            const { status } = await fetch(`/api/boards/${board.id}`, options);
+            const { status } = await fetch(getURL(), options);
 
             if(status >= 300 || status < 200) throw new Error();
 

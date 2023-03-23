@@ -7,7 +7,7 @@ import classes from "./styles.module.css";
 import AddTask from "./components/add-column-task";
 import Task from "./components/task";
 
-const ColumnContainer = ({ name, tasks }) => {
+const ColumnContainer = ({ id, name, tasks }) => {
 
     return (
         <li className={classNames(classes.container, `border border-solid border-stone-300 mr-4 px-3 py-2 rounded-lg`)}>
@@ -27,7 +27,7 @@ const ColumnContainer = ({ name, tasks }) => {
                         />
                     ))
                 }
-                <AddTask />
+                <AddTask columnId={id} />
             </ul>
         </li>
     );

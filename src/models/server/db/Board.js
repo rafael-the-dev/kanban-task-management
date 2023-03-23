@@ -6,11 +6,12 @@ const InputFormatError = require("../errors/InvalidArgumentError")
 const UserModel = require("./User");
 
 const getBoard = ({ boards, id }) => boards.find(board => board.id === id);
+const getBoardColumn = ({ columns, id }) => columns.find(column => column.id === id);
 
 const getIsoDate = (date) => new Date(date ?? Date.now()).toISOString();
 
-const isValidName = ({ name }) => {
-    if(!Boolean(name.trim())) throw new InputFormatError();
+const isValidName = ({ value }) => {
+    if(!Boolean(value.trim())) throw new InputFormatError();
 
     return true;
 };
@@ -20,7 +21,7 @@ const validateColumns = ({ columns }) => {
     const createdAt = getIsoDate();
 
     const result = columns.map(({ id, name }) => {
-        isValidName({ name }); // validate column name
+        isValidName({ value: name }); // validate column name
 
         return {
             createdAt,
@@ -36,12 +37,12 @@ const validateColumns = ({ columns }) => {
 const validateSubTasks = ({ subTasks }) => {
     const createdAt = getIsoDate();
 
-    const result = subTasks.map(({ id, description }) => {
-        isValidName({ description }); 
+    const result = subTasks.map(({ id, name }) => {
+        isValidName({ value: name }); 
 
         return {
             createdAt,
-            description,
+            description: name,
             finished: false,
             id: id ?? uuidV4(), // column id is optional to be provided by the user
         }
@@ -59,7 +60,7 @@ class Board {
 
     }
 
-    static async createTask({ boardId, description, dueDate, subTasks, title,  }, { mongoDbConfig, user }) {
+    static async createTask({ boardId, columnId, description, dueDate, subTasks, title  }, { mongoDbConfig, user }) {
         const { username } = user;
 
         const userDetails = await UserModel.get({ username }, { mongoDbConfig });
@@ -77,7 +78,8 @@ class Board {
         };
 
         const board = getBoard({ boards: userDetails.boards, id: boardId });
-        board.tasks.push(task);
+        const column = getBoardColumn({ columns: board.columns, id: columnId })
+        column.tasks.push(task);
 
         await UserModel.update(
             { 
