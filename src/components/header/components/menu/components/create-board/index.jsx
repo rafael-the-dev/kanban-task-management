@@ -11,9 +11,10 @@ const CreateBoardContainer = () => {
     const clickHandler = () => onOpenRef.current?.();
 
     return (
-        <div className="px-5">
+        <div className="px-5 xl:pl-0">
             <Button
-                classes={{ button: "bg-transparent capitalize mt-4 rounded-full shadow-none text-primary-600 w-full hover:bg-primary-600 hover:text-white" }}
+                classes={{ button: `bg-transparent capitalize mt-4 rounded-full shadow-none text-primary-600 
+                    w-full hover:bg-primary-600 hover:text-white xl:justify-start xl:mt-0` }}
                 onClick={clickHandler}
                 startIcon={<AddIcon />}>
                 Create new board

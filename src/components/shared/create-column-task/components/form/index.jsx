@@ -8,9 +8,11 @@ import MessageDialog from "src/components/shared/message-dialog";
 
 const Form = ({ children }) => {
     const { board, fetchBoards } = React.useContext(AppContext);
-    const { boardColumnId, description, name, subTasks, setLoading } = React.useContext(ColumnContext);
+    const { boardColumnId, columnId, description, name, subTasks, setLoading, taskId } = React.useContext(ColumnContext);
 
     const setDialogMessageRef = React.useRef(null);
+
+    const canIEdit = React.useMemo(() => Boolean(columnId) && Boolean(taskId), [ columnId, taskId ]);
 
     const messageDialogMemo = React.useMemo(() => (
         <MessageDialog
@@ -22,11 +24,11 @@ const Form = ({ children }) => {
         let url = `/api/boards/${board.id}`;
 
         //concatenate /tasks slug if user is creating new task
-        if(boardColumnId.current) url += `/columns/${boardColumnId.current}/tasks`; 
+        if(boardColumnId.current) url += `/columns/${boardColumnId.current}/tasks/${canIEdit ? taskId : '/' }`; 
 
         return url;
 
-    }, [ board, boardColumnId ])
+    }, [ board, boardColumnId, canIEdit, taskId ]);
        
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -51,7 +53,7 @@ const Form = ({ children }) => {
         const options = {
             ...getAuthorizationHeader(),
             body, 
-            method: "POST"
+            method: canIEdit ? "PUT" : "POST"
         }
 
         try {

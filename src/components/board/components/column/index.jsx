@@ -23,6 +23,7 @@ const ColumnContainer = ({ id, name, tasks }) => {
                 {
                     tasks.map(task => (
                         <Task 
+                            { ...task }
                             header={
                                 <header>
                                     <Task.Title>{ task.title }</Task.Title>
@@ -38,6 +39,7 @@ const ColumnContainer = ({ id, name, tasks }) => {
                                     <Task.DueDate date={task.createdAt} />
                                 </footer>
                             }
+                            columnId={id}
                             key={task.id}
 
                         />

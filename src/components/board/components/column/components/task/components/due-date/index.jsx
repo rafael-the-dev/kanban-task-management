@@ -11,6 +11,7 @@ const Date = ({ date }) => {
             inputFormat="DD/MM/YYYY"
             inputProps={{ readOnly: true }}
             mask="__/__/____"
+            onChange={() => {}}
             value={date}
             renderInput={(params) => (
                 <TextField 

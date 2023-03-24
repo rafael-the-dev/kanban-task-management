@@ -6,12 +6,20 @@ import DueDate from "./components/due-date";
 import Description from "./components/description";
 import Title from "./components/title";
 
-const TaskCard = ({ body, footer, header }) => {
+import TaskDialog from "src/components/shared/create-column-task";
 
+const TaskCard = ({ body, columnId, footer, header, id }) => {
+    const onOpen = React.useRef(null);
+
+    const clickHandler = React.useCallback(() => onOpen.current?.(), []);
+    
     return (
         <li
             className="mb-4 last:mb-0">
-            <Button className="bg-white justify-start normal-case px-4 py-3 rounded-lg text-left w-full first-letter:capitalize hover:bg-primary-100">
+            <Button 
+                className="bg-white justify-start normal-case px-4 py-3 rounded-lg text-left w-full 
+                    first-letter:capitalize hover:bg-primary-100"
+                onClick={clickHandler}>
                 <Paper 
                     className="bg-transparent flex flex-col items-stretch"
                     elevation={0}>
@@ -20,6 +28,20 @@ const TaskCard = ({ body, footer, header }) => {
                     { footer }
                 </Paper>
             </Button>
+            <TaskDialog
+                columnId={columnId}
+                onOpen={onOpen} 
+                title="Edit task"
+                taskId={id}>
+                <TaskDialog.Form>
+                    <TaskDialog.Content>
+                        <TaskDialog.NameInput />
+                        <TaskDialog.DescriptionInput />
+                        <TaskDialog.Columns />
+                    </TaskDialog.Content>
+                    <TaskDialog.SubmitButton />
+                </TaskDialog.Form>
+            </TaskDialog>
         </li>
     );
 };

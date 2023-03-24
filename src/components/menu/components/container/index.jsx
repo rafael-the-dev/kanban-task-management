@@ -13,6 +13,9 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import SchoolIcon from '@mui/icons-material/School';
 import TimelineIcon from '@mui/icons-material/Timeline';
 
+import BoardsList from "src/components/shared/boards-list";
+import CreateBoard from 'src/components/header/components/menu/components/create-board';
+import Logo from "src/components/shared/logo";
 import Link from "src/components/link";
 import ListItem from "../list-item";
 
@@ -23,19 +26,30 @@ const Container = () => {
 
     return (
         <aside 
-            className={classNames(classes.container, "bg-stone-100 flex flex-col h-screen justify-between overflow-hidden pl-5 pb-6 xl:pl-4",
+            className={classNames(classes.container, `bg-stone-100 flex flex-col h-screen xl:h-full 
+            justify-between overflow-hidden pl-5 pb-6 xl:bg-white xl:pl-0`,
             { [classes.containerOpen]: open })}>
             <div>
-                <div className="pr-5 py-4 rounded-full lg:py-3">
-                    <Link 
-                        className="text-lg sm:text-xl md:text-2xl text-white uppercase"
-                        href="/">
-                        <Avatar
-                            className={classNames(classes.avatar, "bg-amber-600")}>
-                            <SchoolIcon />
-                        </Avatar>
-                    </Link>
+                <div className="pr-5 py-4 rounded-full xl:mb-8 xl:pl-4 lg:py-3 xl:rounded-none">
+                    <Logo lgDown />
                 </div>
+                <BoardsList />
+                <CreateBoard />
+            </div>
+            <div >
+                <Button
+                    className={classNames(classes.button, "bg-slate-300 hidden xl:flex hover:bg-slate-400", { [classes.buttonOpen]: open})}
+                    onClick={toggle}>
+                    { open ? <ArrowBackIcon /> : <ArrowForwardIcon /> }
+                </Button>
+            </div>
+        </aside>
+    );
+};
+
+export default Container;
+
+/**
                 <ul className="py-3 lg:pt-6">
                     <ListItem 
                         classes={{ button: "text-black" }} href="/dashboard">
@@ -57,17 +71,4 @@ const Container = () => {
                         classes={{ button: "text-black" }}>
                         <TimelineIcon /> <span className={classNames(classes.label, { [classes.labelOpen]: open })}>Home</span>
                     </ListItem>
-                </ul>
-            </div>
-            <div >
-                <Button
-                    className={classNames(classes.button, "bg-slate-300 hidden xl:flex hover:bg-slate-400", { [classes.buttonOpen]: open})}
-                    onClick={toggle}>
-                    { open ? <ArrowBackIcon /> : <ArrowForwardIcon /> }
-                </Button>
-            </div>
-        </aside>
-    );
-};
-
-export default Container;
+                </ul> */
