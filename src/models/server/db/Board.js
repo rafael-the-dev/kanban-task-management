@@ -72,6 +72,7 @@ class Board {
             dueDate, 
             description,
             finished: false,
+            id: uuidV4(),
             subTasks: validSubTasks,
             status: "ACTIVE",
             title
@@ -92,6 +93,46 @@ class Board {
             }
         )
     }
+
+    static async updateTask({ boardId, columnId, description, dueDate, subTasks, title, taskId  }, { mongoDbConfig, user }) {
+        const { username } = user;
+
+        const userDetails = await UserModel.get({ username }, { mongoDbConfig });
+
+        const validSubTasks = validateSubTasks({ subTasks });
+
+        /*const task = {
+            finished: false,
+            status: "ACTIVE",
+        };*/
+
+        const board = getBoard({ boards: userDetails.boards, id: boardId });
+        if(!board) throw new Error404("Board not found");
+
+        const column = getBoardColumn({ columns: board.columns, id: columnId });
+        if(!column) throw new Error404("Column not found");
+
+        const task = column.tasks.find(currentTask => currentTask.id === taskId);
+
+        if(!task) throw new Error404("Task not found");
+
+        task.dueDate = dueDate;
+        task.description = description;
+        task.subTasks = validSubTasks,
+        task.title = title;
+
+        await UserModel.update(
+            { 
+                filter: { username },
+                key: "boards",
+                value: userDetails.boards
+            },
+            {
+                mongoDbConfig
+            }
+        )
+    }
+
 
     static async delete({ id }, { mongoDbConfig, user }) {
         const { username } = user;
