@@ -11,8 +11,10 @@ export const AppContextProvider = ({ children }) => {
 
     const [ boards, setBoards ] = React.useState({ list: [] });
     const [ board, setBoard ] = React.useState(null);
-    console.log(boards)
+    
     const boardRef = React.useRef(null);
+
+    const dialogCloseHandler = React.useRef(null);
 
     const fetchBoards = React.useCallback(async () => {
         try {
@@ -39,6 +41,7 @@ export const AppContextProvider = ({ children }) => {
     return (
         <AppContext.Provider value={{ 
             boards, board,
+            dialogCloseHandler,
             fetchBoards,
             setBoards, setBoard
          }}>

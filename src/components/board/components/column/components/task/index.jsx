@@ -2,6 +2,8 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 
+import { AppContext } from "src/context/AppContext"
+
 import DueDate from "./components/due-date";
 import Description from "./components/description";
 import Title from "./components/title";
@@ -9,9 +11,20 @@ import Title from "./components/title";
 import TaskDialog from "src/components/shared/create-column-task";
 
 const TaskCard = ({ body, columnId, footer, header, id }) => {
+    const { dialogCloseHandler } = React.useContext(AppContext);
+
+    const onClose = React.useRef(null);
     const onOpen = React.useRef(null);
 
-    const clickHandler = React.useCallback(() => onOpen.current?.(), []);
+    const closeHandler = React.useCallback(() => {
+        dialogCloseHandler.current = null;
+        onClose.current?.();
+    }, [ dialogCloseHandler ]);
+
+    const clickHandler = React.useCallback(() => {
+        dialogCloseHandler.current = closeHandler;
+        onOpen.current?.();
+    }, [ closeHandler, dialogCloseHandler ]);
     
     return (
         <li
@@ -30,6 +43,8 @@ const TaskCard = ({ body, columnId, footer, header, id }) => {
             </Button>
             <TaskDialog
                 columnId={columnId}
+                customClose={closeHandler}
+                onClose={onClose}
                 onOpen={onOpen} 
                 title="Edit task"
                 taskId={id}>

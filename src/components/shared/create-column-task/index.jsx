@@ -18,7 +18,7 @@ import NameInput from "./components/name-input";
 import SubmitButton from "./components/submit-button";
 import Title from "./components/title";
 
-const CreateBoardContainer = ({ children, columnId, onOpen, title, taskId }) => {
+const CreateBoardContainer = ({ children, columnId, customClose, onOpen, title, taskId }) => {
     const { board, fetchBoards } = React.useContext(AppContext);
 
     const onClose = React.useRef(null);
@@ -36,6 +36,7 @@ const CreateBoardContainer = ({ children, columnId, onOpen, title, taskId }) => 
     return (
         <Dialog
             classes={{ paper: classNames(classes.paper, `m-0`) }}
+            customClose={customClose}
             onClose={onClose}
             onOpen={onOpen}>
             { dialogHeaderMemo }

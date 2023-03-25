@@ -13,7 +13,7 @@ import { getAuthorizationHeader } from "src/helpers/queries"
 import Dialog from "src/components/dialog";
 
 const DeleteTask = ({ className }) => {
-    const { board } = React.useContext(AppContext);
+    const { board, dialogCloseHandler, fetchBoards } = React.useContext(AppContext);
     const { columnId, taskId } = React.useContext(ColumnContext);
 
     const { loading, setLoading } = useLoading();
@@ -37,7 +37,9 @@ const DeleteTask = ({ className }) => {
             const { status } = res;
 
             if(status === 200) {
+                await fetchBoards();
                 closeHandler();
+                dialogCloseHandler.current?.();
             }
 
             const data = await res.json();
@@ -49,7 +51,7 @@ const DeleteTask = ({ className }) => {
         finally {
             setLoading(false);
         }
-    }, [ board, columnId, closeHandler, setLoading, taskId ]);
+    }, [ board, columnId, closeHandler, dialogCloseHandler, fetchBoards, setLoading, taskId ]);
 
     return (
         <>
