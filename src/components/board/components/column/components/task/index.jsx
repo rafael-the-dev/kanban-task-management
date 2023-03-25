@@ -39,7 +39,10 @@ const TaskCard = ({ body, columnId, footer, header, id }) => {
                         <TaskDialog.DescriptionInput />
                         <TaskDialog.Columns />
                     </TaskDialog.Content>
-                    <TaskDialog.SubmitButton />
+                    <div className="flex items-stretch justify-end py-3 px-4">
+                        <TaskDialog.DeleteButton className="mr-3" />
+                        <TaskDialog.SubmitButton className="px-8 w-auto" />
+                    </div>
                 </TaskDialog.Form>
             </TaskDialog>
         </li>

@@ -11,6 +11,7 @@ import DialogHeader from "src/components/dialog/components/dialog-header";
 
 import Columns from "./components/columns";
 import Content from "./components/content";
+import DeleteButton from "./components/delete-task";
 import DescriptionInput from "./components/description-input";
 import Form from "./components/form";
 import NameInput from "./components/name-input";
@@ -47,6 +48,7 @@ const CreateBoardContainer = ({ children, columnId, onOpen, title, taskId }) => 
 
 CreateBoardContainer.Columns = Columns;
 CreateBoardContainer.Content = Content;
+CreateBoardContainer.DeleteButton = DeleteButton;
 CreateBoardContainer.DescriptionInput = DescriptionInput;
 CreateBoardContainer.Form = Form;
 CreateBoardContainer.Header = Title;

@@ -7,7 +7,7 @@ const requestHandler = (req, res, { mongoDbConfig, user }) => {
 
     switch(method) {
         case "DELETE": {
-            return BoardModel.delete({ id }, { mongoDbConfig, user })
+            return BoardModel.deleteTask({ boardId: id, columnId, taskId }, { mongoDbConfig, user })
                 .then(() => res.send());
         }
         case "PUT": {

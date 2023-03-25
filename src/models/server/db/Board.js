@@ -10,6 +10,29 @@ const getBoardColumn = ({ columns, id }) => columns.find(column => column.id ===
 
 const getIsoDate = (date) => new Date(date ?? Date.now()).toISOString();
 
+const getBoardDetails = ({ boards, id, columnId, taskId }) => {
+    const board = getBoard({ boards, id });
+    if(!board) throw new Error404("Board not found");
+
+    let column = null;
+    if(columnId) {
+        column = getBoardColumn({ columns: board.columns, id: columnId });
+        if(!column) throw new Error404("Column not found");
+    }
+
+    let task = null;
+    if(task) {
+        task = column.tasks.find(currentTask => currentTask.id === taskId);
+        if(!task) throw new Error404("Task not found");
+    }
+
+    return {
+        board,
+        column,
+        task
+    };
+}
+
 const isValidName = ({ value }) => {
     if(!Boolean(value.trim())) throw new InputFormatError();
 
@@ -94,6 +117,27 @@ class Board {
         )
     }
 
+    static async deleteTask({ boardId, columnId, taskId  }, { mongoDbConfig, user }) {
+        const { username } = user;
+
+        const userDetails = await UserModel.get({ username }, { mongoDbConfig });
+
+        const { column } = getBoardDetails({ boards: userDetails.boards, id: boardId, columnId, taskId });
+
+        column.tasks = column.tasks.filter(task => task.id !== taskId);
+
+        await UserModel.update(
+            { 
+                filter: { username },
+                key: "boards",
+                value: userDetails.boards
+            },
+            {
+                mongoDbConfig
+            }
+        )
+    }
+
     static async updateTask({ boardId, columnId, description, dueDate, subTasks, title, taskId  }, { mongoDbConfig, user }) {
         const { username } = user;
 
@@ -101,20 +145,7 @@ class Board {
 
         const validSubTasks = validateSubTasks({ subTasks });
 
-        /*const task = {
-            finished: false,
-            status: "ACTIVE",
-        };*/
-
-        const board = getBoard({ boards: userDetails.boards, id: boardId });
-        if(!board) throw new Error404("Board not found");
-
-        const column = getBoardColumn({ columns: board.columns, id: columnId });
-        if(!column) throw new Error404("Column not found");
-
-        const task = column.tasks.find(currentTask => currentTask.id === taskId);
-
-        if(!task) throw new Error404("Task not found");
+        const { task } = getBoardDetails({ boards: userDetails.boards, id: boardId, columnId, taskId })
 
         task.dueDate = dueDate;
         task.description = description;
