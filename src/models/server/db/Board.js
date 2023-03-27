@@ -21,7 +21,7 @@ const getBoardDetails = ({ boards, id, columnId, taskId }) => {
     }
 
     let task = null;
-    if(task) {
+    if(taskId) {
         task = column.tasks.find(currentTask => currentTask.id === taskId);
         if(!task) throw new Error404("Task not found");
     }
@@ -88,7 +88,11 @@ class Board {
 
         const userDetails = await UserModel.get({ username }, { mongoDbConfig });
 
-        const validSubTasks = validateSubTasks({ subTasks });
+        const validSubTasks = null;
+
+        if(subTasks && Array.isArray(subTasks) && subTasks.length > 0) {
+            validSubTasks = validateSubTasks({ subTasks });
+        }
 
         const task = {
             createdAt: getIsoDate(),
@@ -96,7 +100,7 @@ class Board {
             description,
             finished: false,
             id: uuidV4(),
-            subTasks: validSubTasks,
+            subTasks: validSubTasks ?? [],
             status: "ACTIVE",
             title
         };
@@ -146,7 +150,7 @@ class Board {
         const validSubTasks = validateSubTasks({ subTasks });
 
         const { task } = getBoardDetails({ boards: userDetails.boards, id: boardId, columnId, taskId })
-
+        
         task.dueDate = dueDate;
         task.description = description;
         task.subTasks = validSubTasks,
