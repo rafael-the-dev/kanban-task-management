@@ -2,6 +2,10 @@
     width: 240px;
 }
 
+.tasksContainer {
+    height: calc(100% - 40px);
+}
+
 @media screen and (min-width: 768px) {
     .container {
         width: 280px;

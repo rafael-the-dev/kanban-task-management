@@ -60,7 +60,9 @@ const validateColumns = ({ columns }) => {
 const validateSubTasks = ({ subTasks }) => {
     const createdAt = getIsoDate();
 
-    const result = subTasks.map(({ id, name }) => {
+    const result = subTasks
+        .filter(({ name }) => Boolean(name) && Boolean(name.trim()))
+        .map(({ id, name }) => {
         isValidName({ value: name }); 
 
         return {
@@ -88,7 +90,7 @@ class Board {
 
         const userDetails = await UserModel.get({ username }, { mongoDbConfig });
 
-        const validSubTasks = null;
+        let validSubTasks = null;
 
         if(subTasks && Array.isArray(subTasks) && subTasks.length > 0) {
             validSubTasks = validateSubTasks({ subTasks });
