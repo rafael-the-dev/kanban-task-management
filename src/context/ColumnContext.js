@@ -1,4 +1,5 @@
 import * as React from "react";
+import moment from "moment";
 
 import { AppContext } from "./AppContext";
 import { useLoading } from "src/hooks/useLoading";
@@ -35,9 +36,14 @@ export const ColumnContextProvider = ({ children, columnId, taskId }) => {
         return selectedTask;
     }, [ column, taskId ]);
 
+    const [ dueDate, setDueDate ] = React.useState(() => {
+        if(task) return { ...initial, value: task.dueDate };
+
+        return { ...initial, value: moment() };
+    })
+
     // return task's description if it was selected for editing
     const [ description, setDescription ] = React.useState(() => {
-        console.log(task)
         if(task) return { ...initial, value: task.description };
 
         return initial;
@@ -75,12 +81,12 @@ export const ColumnContextProvider = ({ children, columnId, taskId }) => {
 
                 //board, column, and task details
                 boardColumnId,
-                description,
+                dueDate, description,
                 loading,
                 name,
                 subTasks,
                 taskColumn,
-                setDescription, setLoading, setName, setSubTasks, setTaskColumn
+                setDueDate, setDescription, setLoading, setName, setSubTasks, setTaskColumn
             }}>
             { children }
         </ColumnContext.Provider>

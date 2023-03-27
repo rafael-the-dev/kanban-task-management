@@ -8,7 +8,7 @@ import MessageDialog from "src/components/shared/message-dialog";
 
 const Form = ({ children }) => {
     const { board, fetchBoards } = React.useContext(AppContext);
-    const { boardColumnId, columnId, description, name, subTasks, setLoading, taskId } = React.useContext(ColumnContext);
+    const { boardColumnId, columnId, dueDate, description, name, subTasks, setLoading, taskId } = React.useContext(ColumnContext);
 
     const setDialogMessageRef = React.useRef(null);
 
@@ -44,6 +44,7 @@ const Form = ({ children }) => {
         const body = JSON.stringify(
             {
                 ...( description ? { description: description.value } : {}),
+                dueDate: dueDate.value,
                 subTasks: subTasks.map(({ id, value }) => ({ id, name: value })),
                 role: "CREATE_COLUMN",
                 title: name.value,
@@ -80,7 +81,7 @@ const Form = ({ children }) => {
 
     return (
         <form 
-            className="flex flex-col grow items-stretch justify-between"
+            className="flex flex-col grow items-stretch justify-between pt-3"
             onSubmit={submitHandler}>
             { children }
             { messageDialogMemo }

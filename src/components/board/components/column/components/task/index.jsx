@@ -52,6 +52,7 @@ const TaskCard = ({ body, columnId, footer, header, id }) => {
                     <TaskDialog.Content>
                         <TaskDialog.NameInput />
                         <TaskDialog.DescriptionInput />
+                        <TaskDialog.DueDate />
                         <TaskDialog.Columns />
                     </TaskDialog.Content>
                     <div className="flex items-stretch justify-end py-3 px-4">

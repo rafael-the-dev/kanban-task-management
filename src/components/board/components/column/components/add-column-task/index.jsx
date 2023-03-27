@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 import classes from "./styles.module.css";
 
-import CreateColumn from "src/components/shared/create-column-task";
+import CreateTask from "src/components/shared/create-column-task";
 
 const AddColumn = ({ columnId }) => {
     const onOpen = React.useRef(null);
@@ -20,19 +20,20 @@ const AddColumn = ({ columnId }) => {
                 onClick={clickHandler}>
                 <AddIcon className="text-2xl" />
             </Button>
-            <CreateColumn
+            <CreateTask
                 columnId={columnId}
                 onOpen={onOpen} 
                 title="Add new task">
-                <CreateColumn.Form>
-                    <CreateColumn.Content>
-                        <CreateColumn.NameInput />
-                        <CreateColumn.DescriptionInput />
-                        <CreateColumn.Columns />
-                    </CreateColumn.Content>
-                    <CreateColumn.SubmitButton />
-                </CreateColumn.Form>
-            </CreateColumn>
+                <CreateTask.Form>
+                    <CreateTask.Content>
+                        <CreateTask.NameInput />
+                        <CreateTask.DescriptionInput />
+                        <CreateTask.DueDate />
+                        <CreateTask.Columns />
+                    </CreateTask.Content>
+                    <CreateTask.SubmitButton />
+                </CreateTask.Form>
+            </CreateTask>
         </li>
     );
 };

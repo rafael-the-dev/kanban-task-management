@@ -36,7 +36,7 @@ const ColumnContainer = ({ id, name, tasks }) => {
                             }
                             footer={
                                 <footer className="flex mt-4 justify-between">
-                                    <Task.DueDate date={task.createdAt} />
+                                    <Task.DueDate date={task.dueDate} />
                                 </footer>
                             }
                             columnId={id}

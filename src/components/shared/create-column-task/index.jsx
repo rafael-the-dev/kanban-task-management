@@ -12,6 +12,7 @@ import DialogHeader from "src/components/dialog/components/dialog-header";
 import Columns from "./components/columns";
 import Content from "./components/content";
 import DeleteButton from "./components/delete-task";
+import DueDate from "./components/due-date";
 import DescriptionInput from "./components/description-input";
 import Form from "./components/form";
 import NameInput from "./components/name-input";
@@ -27,7 +28,10 @@ const CreateBoardContainer = ({ children, columnId, customClose, onOpen, title, 
 
     const dialogHeaderMemo = React.useMemo(() => (
         <DialogHeader
-            classes={{ root: classNames("capitalize pl-3")}}
+            classes={{ 
+                button: classNames("text-gray-100"),
+                root: classNames("bg-primary-600 capitalize pl-3 text-white")
+            }}
             onClose={closeHandler}>
             { title }
         </DialogHeader>
@@ -50,6 +54,7 @@ const CreateBoardContainer = ({ children, columnId, customClose, onOpen, title, 
 CreateBoardContainer.Columns = Columns;
 CreateBoardContainer.Content = Content;
 CreateBoardContainer.DeleteButton = DeleteButton;
+CreateBoardContainer.DueDate = DueDate;
 CreateBoardContainer.DescriptionInput = DescriptionInput;
 CreateBoardContainer.Form = Form;
 CreateBoardContainer.Header = Title;
