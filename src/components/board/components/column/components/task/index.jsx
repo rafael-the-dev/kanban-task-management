@@ -15,7 +15,27 @@ import Title from "./components/title";
 import TaskDialog from "src/components/shared/create-column-task";
 
 const TaskCard = ({ body, columnId, footer, header, id }) => {
-    const { dialogCloseHandler, setBoard } = React.useContext(AppContext);
+    const { dialogCloseHandler, board, fetchBoards, setBoard } = React.useContext(AppContext);
+
+    const submitHandler = React.useCallback(async ({ draggedItem }) => {
+        try {
+            const options = {
+                body: JSON.stringify({
+                    role: "SWAP",
+                    source: { columnId: draggedItem.columnId, taskId: draggedItem.id }
+                }),
+                method: "PUT"
+            };
+
+            const res = await fetch(`/api/boards/${board.id}/columns/${columnId}/tasks/${id}`, options);
+            const { status } = res;
+
+            if(status === 200) await fetchBoards();
+        }
+        catch(e) {
+            console.error(e)
+        }
+    }, [ board, columnId, fetchBoards, id ]);
 
     const dropHandler = React.useCallback(({ draggedItem }) => {
         setBoard(currentBoard => {
@@ -46,11 +66,12 @@ const TaskCard = ({ body, columnId, footer, header, id }) => {
     const [, drop] = useDrop(
         () => ({
             accept: ItemTypes.COLUMN_TASK,
-            drop: (item) => {
-                dropHandler({ draggedItem: item })
+            drop: async (item) => {
+                dropHandler({ draggedItem: item });
+                await submitHandler({ draggedItem: item });
             }
         }),
-        [ columnId, dropHandler, id ]
+        [ columnId, dropHandler, submitHandler ]
     );
 
     const [ collected, drag ] = useDrag(

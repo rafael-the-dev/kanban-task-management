@@ -11,9 +11,20 @@ const requestHandler = (req, res, { mongoDbConfig, user }) => {
                 .then(() => res.send());
         }
         case "PUT": {
-            const { description, dueDate, subTasks, title } = JSON.parse(body);
+            const { description, dueDate, subTasks, role, source, title, target } = JSON.parse(body);
 
-            return BoardModel.updateTask({ boardId: id, columnId, description, dueDate, subTasks, title, taskId }, { mongoDbConfig, user })
+            return BoardModel
+                .updateTask(
+                    { 
+                        boardId: id, 
+                        columnId, 
+                        description, dueDate, 
+                        role,
+                        subTasks, source,
+                        title, taskId, target: { columnId, taskId }
+                    }, 
+                    { mongoDbConfig, user }
+                )
                 .then(() => res.send());
         }
         default: {

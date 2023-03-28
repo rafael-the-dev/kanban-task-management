@@ -1,5 +1,7 @@
 const uuidV4 = require("uuid").v4;
 
+const { swapTasks } = require("src/helpers/dnd")
+
 const Error404 = require("../errors/404Error");
 const InputFormatError = require("../errors/InvalidArgumentError")
 
@@ -144,19 +146,33 @@ class Board {
         )
     }
 
-    static async updateTask({ boardId, columnId, description, dueDate, subTasks, title, taskId  }, { mongoDbConfig, user }) {
+    static async updateTask({ boardId, columnId, description, dueDate, role, source, subTasks, title, taskId, target  }, { mongoDbConfig, user }) {
         const { username } = user;
 
         const userDetails = await UserModel.get({ username }, { mongoDbConfig });
 
-        const validSubTasks = validateSubTasks({ subTasks });
+        const { board, task } = getBoardDetails({ boards: userDetails.boards, id: boardId, columnId, taskId });
 
-        const { task } = getBoardDetails({ boards: userDetails.boards, id: boardId, columnId, taskId })
-        
-        task.dueDate = dueDate;
-        task.description = description;
-        task.subTasks = validSubTasks,
-        task.title = title;
+        switch(role) {
+            case "SWAP": {
+                if(!source) throw new InputFormatError("Source was not defined");
+
+                swapTasks({
+                    board, 
+                    source,
+                    target
+                });
+                break;
+            }
+            default: {
+                const validSubTasks = validateSubTasks({ subTasks });
+
+                task.dueDate = dueDate;
+                task.description = description;
+                task.subTasks = validSubTasks,
+                task.title = title;
+            }
+        }
 
         await UserModel.update(
             { 
