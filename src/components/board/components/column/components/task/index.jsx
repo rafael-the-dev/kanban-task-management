@@ -1,8 +1,11 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
+import classNames from "classnames";
 import Paper from "@mui/material/Paper";
+import { useDrag, useDrop } from "react-dnd"
 
-import { AppContext } from "src/context/AppContext"
+import { AppContext } from "src/context/AppContext";
+import { ItemTypes } from "./assets/js/config"; 
 
 import DueDate from "./components/due-date";
 import Description from "./components/description";
@@ -11,7 +14,56 @@ import Title from "./components/title";
 import TaskDialog from "src/components/shared/create-column-task";
 
 const TaskCard = ({ body, columnId, footer, header, id }) => {
-    const { dialogCloseHandler } = React.useContext(AppContext);
+    const { dialogCloseHandler, setBoard } = React.useContext(AppContext);
+
+    const dropHandler = React.useCallback(({ draggedItem }) => {
+        setBoard(currentBoard => {
+            const board = { ...currentBoard };
+
+            const targetColumn = board.columns.find(column => column.id === columnId);
+            const targetTask = targetColumn.tasks.findIndex(task => task.id === id);
+
+            if(columnId === draggedItem.columnId) {
+                if(id !== draggedItem.id) {
+                    const { tasks } = targetColumn;
+                    const sourceTask = targetColumn.tasks.findIndex(task => task.id === draggedItem.id);
+
+                    let tempTask = tasks[sourceTask];
+                    tasks[sourceTask] = tasks[targetTask];
+                    tasks[targetTask] = tempTask;
+                } else {
+                    return currentBoard;
+                }
+
+            }
+
+            return board;
+
+        });
+    }, [ columnId, id, setBoard ]);
+
+    const [, drop] = useDrop(
+        () => ({
+            accept: ItemTypes.COLUMN_TASK,
+            drop: (item) => {
+                dropHandler({ draggedItem: item })
+            }
+        }),
+        [ columnId, dropHandler, id ]
+    );
+
+    const [ collected, drag, dragPreview ] = useDrag(
+        () => ({
+            collect: (monitor) => ({
+            isDragging: !!monitor.isDragging()
+            }),
+            item: { columnId, id },
+            type: ItemTypes.COLUMN_TASK,
+        }),
+        [ columnId, id ]
+    );
+
+    const { isDragging } = collected;
 
     const onClose = React.useRef(null);
     const onOpen = React.useRef(null);
@@ -28,11 +80,15 @@ const TaskCard = ({ body, columnId, footer, header, id }) => {
     
     return (
         <li
-            className="mb-4 last:mb-0">
+            className="mb-4 last:mb-0"
+            ref={drop}>
             <Button 
-                className="bg-white justify-start normal-case px-4 py-3 rounded-lg text-left w-full 
-                    first-letter:capitalize hover:bg-primary-100"
-                onClick={clickHandler}>
+                className={classNames(`justify-start normal-case px-4 py-3 rounded-lg text-left w-full 
+                    first-letter:capitalize`,
+                    isDragging ? "bg-primary-200" : "bg-white hover:bg-primary-100")}
+                onClick={clickHandler}
+                ref={drag}
+                { ...collected }>
                 <Paper 
                     className="bg-transparent flex flex-col items-stretch"
                     elevation={0}>
