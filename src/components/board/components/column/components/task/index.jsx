@@ -6,6 +6,7 @@ import { useDrag, useDrop } from "react-dnd"
 
 import { AppContext } from "src/context/AppContext";
 import { ItemTypes } from "./assets/js/config"; 
+import { swapTasks } from "src/helpers/dnd"
 
 import DueDate from "./components/due-date";
 import Description from "./components/description";
@@ -20,21 +21,21 @@ const TaskCard = ({ body, columnId, footer, header, id }) => {
         setBoard(currentBoard => {
             const board = { ...currentBoard };
 
-            const targetColumn = board.columns.find(column => column.id === columnId);
-            const targetTask = targetColumn.tasks.findIndex(task => task.id === id);
-
-            if(columnId === draggedItem.columnId) {
-                if(id !== draggedItem.id) {
-                    const { tasks } = targetColumn;
-                    const sourceTask = targetColumn.tasks.findIndex(task => task.id === draggedItem.id);
-
-                    let tempTask = tasks[sourceTask];
-                    tasks[sourceTask] = tasks[targetTask];
-                    tasks[targetTask] = tempTask;
-                } else {
-                    return currentBoard;
+            const result = swapTasks({
+                board,
+                defaultBoard: currentBoard,
+                source: { 
+                    columnId: draggedItem.columnId, 
+                    taskId: draggedItem.id 
+                },
+                target: {
+                    columnId,
+                    taskId: id
                 }
+            });
 
+            if(result) {
+                return currentBoard;
             }
 
             return board;
@@ -52,7 +53,7 @@ const TaskCard = ({ body, columnId, footer, header, id }) => {
         [ columnId, dropHandler, id ]
     );
 
-    const [ collected, drag, dragPreview ] = useDrag(
+    const [ collected, drag ] = useDrag(
         () => ({
             collect: (monitor) => ({
             isDragging: !!monitor.isDragging()
