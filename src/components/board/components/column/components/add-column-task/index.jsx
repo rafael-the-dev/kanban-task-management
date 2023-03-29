@@ -31,7 +31,9 @@ const AddColumn = ({ columnId }) => {
                         <CreateTask.DueDate />
                         <CreateTask.Columns />
                     </CreateTask.Content>
-                    <CreateTask.SubmitButton />
+                    <div className="flex justify-end py-3 px-6">
+                        <CreateTask.SubmitButton className="px-8 "  />
+                    </div>
                 </CreateTask.Form>
             </CreateTask>
         </li>

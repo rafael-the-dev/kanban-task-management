@@ -11,7 +11,7 @@ const SubmitButton = ({ className }) => {
     return (
         <Button
             color="primary"
-            classes={{ button: classNames("bg-primary-600 rounded-none w-full sm:py-3 hover:bg-primary-700", className) }}
+            classes={{ button: classNames("bg-primary-600 rounded-none sm:py-3 hover:bg-primary-700", className) }}
             type="submit">
             { loading ? "Loading..." : "Send" }
         </Button>
