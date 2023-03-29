@@ -69,6 +69,7 @@ export const ColumnContextProvider = ({ children, columnId, taskId }) => {
     const [ taskColumn, setTaskColumn ] = React.useState("");
 
     const boardColumnId = React.useRef(columnId);
+    const taskRef = React.useRef(null);
 
     const { loading, setLoading } = useLoading();
 

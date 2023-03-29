@@ -13,6 +13,7 @@ export const AppContextProvider = ({ children }) => {
     const [ board, setBoard ] = React.useState(null);
     
     const boardRef = React.useRef(null);
+    const taskRef = React.useRef(null);
 
     const dialogCloseHandler = React.useRef(null);
 
@@ -43,7 +44,8 @@ export const AppContextProvider = ({ children }) => {
             boards, board,
             dialogCloseHandler,
             fetchBoards,
-            setBoards, setBoard
+            setBoards, setBoard,
+            taskRef
          }}>
             { children }
         </AppContext.Provider>
