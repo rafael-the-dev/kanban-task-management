@@ -103,19 +103,3 @@ TaskCard.Description = Description;
 TaskCard.Title = Title;
 
 export default TaskCard;
-
-/**
- * { description && <div>
-                        <Typography
-                            component="p"
-                            className={classNames(classes.description, `font-normal mt-2 text-sm leading-6
-                                overflow-hidden text-ellipsis`)}>
-                            { description }
-                        </Typography>
-                    </div> }
-                    <div>
-                        <Typography>
-                            { name }
-                        </Typography>
-                    </div>
- */
