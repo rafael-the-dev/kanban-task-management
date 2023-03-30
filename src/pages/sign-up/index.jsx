@@ -59,7 +59,7 @@ const Container = () => {
             errors={firstName.error}
             id="name"
             onChange={firstNameChangeHandler}
-            placeholder="Primeiro nome"
+            placeholder="First name"
             ref={firstNameRef}
             value={firstName.value}
         />
@@ -70,7 +70,7 @@ const Container = () => {
             errors={lastName.error}
             id="name"
             onChange={lastNameChangeHandler}
-            placeholder="Ultimo nome"
+            placeholder="Last name"
             ref={lastNameRef}
             value={lastName.value}
         />
@@ -81,7 +81,7 @@ const Container = () => {
             errors={username.error}
             id="username"
             onChange={usernameChangeHandler}
-            placeholder="Nome do usuario"
+            placeholder="Username"
             ref={userNameRef}
             value={username.value}
         />
@@ -92,7 +92,7 @@ const Container = () => {
             errors={password.error}
             id="password"
             onChange={passwordChangeHandler}
-            placeholder="Palavra-passe"
+            placeholder="Password"
             ref={passwordRef}
         />
     ), [ password, passwordChangeHandler ]);
@@ -102,7 +102,7 @@ const Container = () => {
             errors={confirmPassword.error}
             id="confirm-password"
             onChange={confirmPasswordChangeHandler}
-            placeholder="Comfirme palavra-passe"
+            placeholder="Comfirm password"
             ref={confirmPasswordRef}
         />
     ), [ confirmPassword, confirmPasswordChangeHandler ]);
@@ -148,7 +148,7 @@ const Container = () => {
                         className={classNames("flex flex-col sm:items-center mt-6")}>
                         { signInMemo }
                         <Button disabled={hasErrors}>
-                            { loading ? "Loading..." : "Submeter"}
+                            { loading ? "Loading..." : "Submit"}
                         </Button>
                     </div>
                 </fieldset>

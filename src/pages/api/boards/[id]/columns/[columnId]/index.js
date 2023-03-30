@@ -1,5 +1,6 @@
 const { apiHandler } = require("src/middlewares/api-handler");
 
+const BoardColumn = require("src/models/server/db/BoardColumn")
 const BoardModel = require("src/models/server/db/Board")
 
 const requestHandler = (req, res, { mongoDbConfig, user }) => {
@@ -7,8 +8,8 @@ const requestHandler = (req, res, { mongoDbConfig, user }) => {
 
     switch(method) {
         case "DELETE": {
-            return BoardModel.deleteTask({ boardId: id, columnId }, { mongoDbConfig, user })
-                .then(() => res.send());
+            return BoardColumn.delete({ boardId: id, columnId }, { mongoDbConfig, user })
+                .then(() => res.send())
         }
         case "PUT": {
             const { role, source, title } = JSON.parse(body);

@@ -1,6 +1,9 @@
 import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react"
-import { Popover } from "@mui/material"
-import { useRouter } from "next/router"
+import Popover from "@mui/material/Popover"
+import { useRouter } from "next/router";
+
+import DeleteButton from "./components/delete-button";
+import EditButton from "./components/edit-button";
 
 const PopoverContainer = ({ children, customClose, id, onClickRef, onCloseRef, paperClassName }) => {
     const router = useRouter();
@@ -56,5 +59,8 @@ const PopoverContainer = ({ children, customClose, id, onClickRef, onCloseRef, p
         </Popover>
     );
 };
+
+PopoverContainer.DeleteButton = DeleteButton;
+PopoverContainer.EditButton = EditButton;
 
 export default PopoverContainer;

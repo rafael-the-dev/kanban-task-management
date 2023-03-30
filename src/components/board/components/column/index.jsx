@@ -10,6 +10,7 @@ import { ItemTypes } from "./components/task/assets/js/config";
 import { dropHandler, submitHandler } from "src/helpers/dnd";
 
 import AddTask from "./components/add-column-task";
+import Menu from "./components/column-menu";
 import Task from "./components/task";
 
 const ColumnContainer = ({ id, name, tasks }) => {
@@ -34,12 +35,13 @@ const ColumnContainer = ({ id, name, tasks }) => {
         <li 
             className={classNames(classes.container, `border border-solid border-stone-300 mr-4 py-2 rounded-lg`)}
             ref={drop}>
-            <div className="px-3">
+            <div className="flex items-center justify-between px-3">
                 <Typography
                     className={classNames("text-stone-600")}
                     component="h2">
                     { name } ({ tasks.length })
                 </Typography>
+                <Menu columnId={id} />
             </div>
             <ul className={classNames(classes.tasksContainer, "flex flex-col items-stretch mt-4 overflow-y-auto pb-4 px-3")}>
                 {

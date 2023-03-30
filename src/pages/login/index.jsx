@@ -148,7 +148,7 @@ const Container = () => {
                 <div 
                     className={classNames("flex flex-col sm:items-center mt-6")}>
                     <Typography component="p" className="ml-4 text-center text-sm">
-                        don&apos;t you have an account? 
+                        don&apos;t have an account? 
                         <Link href="/sign-up">
                             <a 
                                 className={classNames(classes.signUpLink, 

@@ -9,7 +9,7 @@ import { getAuthorizationHeader } from "src/helpers/queries";
 
 import MessageDialog from "src/components/message-dialog";
 
-const BoardOptions = ({ onClose }) => {
+const BoardOptions = ({ children, onClose, url }) => {
     const { board, fetchBoards } = React.useContext(AppContext);
 
     const { loading, setLoading } = useLoading();
@@ -31,7 +31,7 @@ const BoardOptions = ({ onClose }) => {
                 method: "DELETE"
             };
 
-            await fetch(`/api/boards/${board.id}`, options);
+            await fetch(url, options);
             await fetchBoards();
             onClose();
 
@@ -47,7 +47,7 @@ const BoardOptions = ({ onClose }) => {
             setLoading(false);
             setDialogMessage.current?.(responseMessage);
         }
-    }, [ board, fetchBoards, onClose, setLoading ]);
+    }, [ fetchBoards, onClose, setLoading, url ]);
 
     const messageDialog = React.useMemo(() => (
         <MessageDialog 
@@ -61,7 +61,7 @@ const BoardOptions = ({ onClose }) => {
                 className="capitalize justify-start pl-2 text-red-600 w-full hover:bg-red-600 hover:text-white"
                 onClick={clickHandler}
                 startIcon={<DeleteIcon />}>
-                { loading ? "Loading..." : "Delete" }
+                { loading ? "Loading..." : children }
             </Button>
             { messageDialog }
         </>
