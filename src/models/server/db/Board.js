@@ -1,6 +1,7 @@
 const uuidV4 = require("uuid").v4;
 
-const { swapTasks } = require("src/helpers/dnd")
+const { isValidName } = require("src/helpers/board")
+const { getIsoDate } = require("src/helpers/datetime");
 
 const Error404 = require("../errors/404Error");
 const InputFormatError = require("../errors/InvalidArgumentError")
@@ -9,8 +10,6 @@ const UserModel = require("./User");
 
 const getBoard = ({ boards, id }) => boards.find(board => board.id === id);
 const getBoardColumn = ({ columns, id }) => columns.find(column => column.id === id);
-
-const getIsoDate = (date) => new Date(date ?? Date.now()).toISOString();
 
 const getBoardDetails = ({ boards, id, columnId, taskId }) => {
     const board = getBoard({ boards, id });
@@ -33,14 +32,7 @@ const getBoardDetails = ({ boards, id, columnId, taskId }) => {
         column,
         task
     };
-}
-
-const isValidName = ({ value }) => {
-    if(!Boolean(value.trim())) throw new InputFormatError();
-
-    return true;
 };
-
 
 const validateColumns = ({ columns }) => {
     const createdAt = getIsoDate();
@@ -146,33 +138,19 @@ class Board {
         )
     }
 
-    static async updateTask({ boardId, columnId, description, dueDate, role, source, subTasks, title, taskId, target  }, { mongoDbConfig, user }) {
+    static async updateTask({ boardId, columnId, description, dueDate, subTasks, title, taskId  }, { mongoDbConfig, user }) {
         const { username } = user;
 
         const userDetails = await UserModel.get({ username }, { mongoDbConfig });
 
-        const { board, task } = getBoardDetails({ boards: userDetails.boards, id: boardId, columnId, taskId });
+        const validSubTasks = validateSubTasks({ subTasks });
 
-        switch(role) {
-            case "SWAP": {
-                if(!source) throw new InputFormatError("Source was not defined");
-
-                swapTasks({
-                    board, 
-                    source,
-                    target
-                });
-                break;
-            }
-            default: {
-                const validSubTasks = validateSubTasks({ subTasks });
-
-                task.dueDate = dueDate;
-                task.description = description;
-                task.subTasks = validSubTasks,
-                task.title = title;
-            }
-        }
+        const { task } = getBoardDetails({ boards: userDetails.boards, id: boardId, columnId, taskId })
+        
+        task.dueDate = dueDate;
+        task.description = description;
+        task.subTasks = validSubTasks,
+        task.title = title;
 
         await UserModel.update(
             { 
