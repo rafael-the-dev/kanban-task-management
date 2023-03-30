@@ -1,3 +1,10 @@
+.loginContainer::before {
+    border-radius: 0 0 50% 50%;
+    content: "" !important;
+    height: 100px;
+    opacity: .65;
+    width: 100%;
+}
 
 @media screen and (min-width: 600px) {
     .loginContainer {
@@ -7,7 +14,15 @@
 
 @media screen and (min-width: 900px) {
     .loginContainer {
+        position: relative;
         width: 800px !important;
+    }
+
+    .loginContainer::before {
+        border-radius: 0 50% 50% 0;
+        height: 100%;
+        left: 0;
+        width: 350px;
     }
 }
 

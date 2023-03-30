@@ -17,6 +17,7 @@ const DueDate = ({  }) => {
         <DesktopDatePicker
             { ...dueDate }
             inputFormat="DD/MM/YYYY"
+            label="Due date"
             mask="__/__/____"
             minDate={moment()}
             onChange={changeHandler}

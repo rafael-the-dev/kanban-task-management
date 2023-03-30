@@ -94,7 +94,7 @@ const Container = () => {
     ), []);
 
     const legendMemo = useMemo(() => (
-        <Typography className="font-bold mb-8 text-center text-2xl uppercase  dark:text-slate-300">
+        <Typography className="font-bold mb-8 text-center text-gray-100 text-2xl uppercase lg:text-black">
             Login
         </Typography>
     ), []);
@@ -135,32 +135,24 @@ const Container = () => {
 
     return (
         <DefaultContainer>
-            <Hidden mdDown>
-                <div className={classNames(classes.imageContainer, `relative`)}>
-                    <Image
-                        alt=""
-                        layout="fill"
-                        src="/images/login.png"
-                    />
-                </div>
-            </Hidden>
             <form 
-                className={classNames(classes.form, "flex flex-col items-stretch justify-center px-5 py-8 md:px-6 ")}
+                className={classNames(classes.form, `flex flex-col items-stretch justify-center px-5 py-8 relative 
+                    z-10 md:px-6 `)}
                 onSubmit={submitHandler}>
                 { legendMemo }
                 { alertMemo }
-                <fieldset>
+                <fieldset className="mt-6 lg:mt-0">
                     { usernameMemo }
                     { passwordMemo }
                 </fieldset>
                 <div 
                     className={classNames("flex flex-col sm:items-center mt-6")}>
-                    <Typography component="p" className="ml-4 text-sm">
+                    <Typography component="p" className="ml-4 text-center text-sm">
                         don&apos;t you have an account? 
                         <Link href="/sign-up">
                             <a 
                                 className={classNames(classes.signUpLink, 
-                                "ml-2 text-amber-600 uppercase underline hover:opacity-90")}>
+                                "ml-2 text-primary-400 uppercase underline hover:opacity-90")}>
                                 sign up.
                             </a>
                         </Link>
