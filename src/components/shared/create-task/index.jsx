@@ -1,16 +1,22 @@
+import * as React from "react";
 
-import CreateTask from "src/components/shared/create-column-task";
+import { AppContext }  from "src/context/AppContext";
 
-const CreateColumn = () => {
+import CreateColumn from "src/components/shared/create-column-task";
+
+const CreateColumnDialog = () => {
+    const { board } = React.useContext(AppContext);
+
     return (
-        <CreateTask.Form>
-            <CreateTask.Content>
-                <CreateTask.NameInput />
-                <CreateTask.Columns />
-            </CreateTask.Content>
-            <CreateTask.SubmitButton />
-        </CreateTask.Form>
+        <CreateColumn.Form href={`/api/boards/${board.id}/columns`}>
+            <CreateColumn.Content>
+                <CreateColumn.NameInput />
+            </CreateColumn.Content>
+            <div className="flex items-stretch justify-end py-3 px-6">
+                <CreateColumn.SubmitButton className="px-8 w-auto" />
+            </div>
+        </CreateColumn.Form>
     );
 };
 
-export default CreateColumn;
+export default CreateColumnDialog;

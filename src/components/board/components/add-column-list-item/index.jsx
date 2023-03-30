@@ -23,7 +23,7 @@ const AddColumn = () => {
             </Button>
             <Dialog 
                 onOpen={onOpen} 
-                title="Add new task">
+                title="Create new column">
                 <CreateTask />
             </Dialog>
         </li>

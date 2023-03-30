@@ -6,7 +6,7 @@ import { ColumnContext } from "src/context/ColumnContext";
 
 import MessageDialog from "src/components/shared/message-dialog";
 
-const Form = ({ children }) => {
+const Form = ({ children, href }) => {
     const { board, fetchBoards } = React.useContext(AppContext);
     const { boardColumnId, columnId, dueDate, description, name, subTasks, setLoading, taskId } = React.useContext(ColumnContext);
 
@@ -21,6 +21,8 @@ const Form = ({ children }) => {
     ), []);
 
     const getURL = React.useCallback(() => {
+        if(href) return href;
+
         let url = `/api/boards/${board.id}`;
 
         //concatenate /tasks slug if user is creating new task
@@ -28,7 +30,7 @@ const Form = ({ children }) => {
 
         return url;
 
-    }, [ board, boardColumnId, canIEdit, taskId ]);
+    }, [ board, boardColumnId, canIEdit, href, taskId ]);
        
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -44,8 +46,8 @@ const Form = ({ children }) => {
         const body = JSON.stringify(
             {
                 ...( description ? { description: description.value } : {}),
-                dueDate: dueDate.value,
-                subTasks: subTasks.map(({ id, value }) => ({ id, name: value })),
+                ...(dueDate.value ? { dueDate: dueDate.value } : {}),
+                ...(subTasks ? { subTasks: subTasks.map(({ id, value }) => ({ id, name: value })) } : {}),
                 role: "CREATE_COLUMN",
                 title: name.value,
             }
