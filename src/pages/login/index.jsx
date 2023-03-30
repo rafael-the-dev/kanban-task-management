@@ -80,7 +80,7 @@ const Container = () => {
                 onOpen.current?.();
                 setLoading(false);
             })
-    }, [ addUser, router ]);
+    }, [ addUser, router, saveUserInfo ]);
 
     const alertMemo = useMemo(() => (
         <Alert 
