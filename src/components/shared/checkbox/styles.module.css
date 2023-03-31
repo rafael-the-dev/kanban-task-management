@@ -1,0 +1,56 @@
+/* Customize the label (the container) */
+.check-container {
+    display: block;
+    position: relative;
+    padding-left: 27px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .check-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+.checkmark {
+    background-color: transparent;
+    border: 1px solid #747070;
+    border-radius: 50%;
+    height: 23px;
+    left: 0;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 0;
+    width: 23px;
+}
+  
+/* When the checkbox is checked, add a linear gradient */
+.check-container input:checked ~ .checkmark {
+    align-items: center;
+    background-image: linear-gradient(137deg, #55DDFF, #C058F3);
+    display: flex;
+    justify-content: center;
+}
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+.check-container::after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+  
+  /* Show the checkmark when checked */
+.check-container input:checked ~ .checkmark::after {
+    content: "\2713";
+    color: #FFF;
+    font-size: .9rem;
+}

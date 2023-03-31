@@ -12,8 +12,9 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import Layout from 'src/components/layout';
 
-import 'src/styles/reset.css'
-import 'src/styles/globals.css'
+import 'src/styles/reset.css';
+import 'src/styles/globals.css';
+import 'src/styles/checkbox.css';
 import 'src/styles/tailwind.css';
 
 import { AppContextProvider, LoginContextProvider } from 'src/context';

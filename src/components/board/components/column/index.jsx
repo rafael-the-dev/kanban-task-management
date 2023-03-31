@@ -59,8 +59,9 @@ const ColumnContainer = ({ id, name, tasks }) => {
                                 </div>
                             }
                             footer={
-                                <footer className="flex mt-4 justify-between">
+                                <footer className="flex mt-4 items-center justify-between w-full">
                                     <Task.DueDate date={task?.dueDate} />
+                                    <Task.Checkbox />
                                 </footer>
                             }
                             columnId={id}

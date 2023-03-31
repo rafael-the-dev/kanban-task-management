@@ -11,6 +11,7 @@ import DueDate from "./components/due-date";
 import Description from "./components/description";
 import Title from "./components/title";
 
+import Checkbox from "src/components/shared/checkbox";
 import TaskDialog from "src/components/shared/create-column-task";
 
 const TaskCard = ({ body, columnId, footer, header, id }) => {
@@ -50,7 +51,10 @@ const TaskCard = ({ body, columnId, footer, header, id }) => {
         onClose.current?.();
     }, [ dialogCloseHandler ]);
 
-    const clickHandler = React.useCallback(() => {
+    const clickHandler = React.useCallback((e) => {
+        const isNotClickable = [ "checkmark", "check-container", "check-input" ].includes(e.target.id);
+        if(isNotClickable) return;
+
         dialogCloseHandler.current = closeHandler;
         onOpen.current?.();
     }, [ closeHandler, dialogCloseHandler ]);
@@ -67,7 +71,7 @@ const TaskCard = ({ body, columnId, footer, header, id }) => {
                 ref={drag}
                 { ...collected }>
                 <Paper 
-                    className="bg-transparent flex flex-col items-stretch"
+                    className="bg-transparent flex flex-col items-stretch w-full"
                     elevation={0}>
                     { header }
                     { body }
@@ -98,6 +102,7 @@ const TaskCard = ({ body, columnId, footer, header, id }) => {
     );
 };
 
+TaskCard.Checkbox = Checkbox;
 TaskCard.DueDate = DueDate;
 TaskCard.Description = Description;
 TaskCard.Title = Title;
