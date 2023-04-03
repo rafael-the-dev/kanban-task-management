@@ -11,7 +11,7 @@ const EmptyBoardsList = () => {
     const clickHandler = () => onOpen.current?.();
 
     return (
-        <div className="flex flex-col h-full items-center justify-center ">
+        <div className="flex flex-col h-screen items-center justify-center ">
             <Typography
                 component="h2"
                 className={classNames("font-bold mb-4 text-xl")}>
