@@ -9,13 +9,15 @@ import { AppContext } from "src/context/AppContext";
 import { getAuthorizationHeader } from "src/helpers/queries";
 import { ItemTypes } from "./components/task/assets/js/config";
 import { dropHandler, submitHandler } from "src/helpers/dnd";
+import { useBoard } from "src/hooks/useBoard"
 
 import AddTask from "./components/add-column-task";
 import Menu from "./components/column-menu";
 import Task from "./components/task";
 
 const ColumnContainer = ({ id, name, tasks }) => {
-    const { board, fetchBoards, setBoard, taskRef } = React.useContext(AppContext);
+    const { fetchBoards, taskRef } = React.useContext(AppContext);
+    const { board, setBoard, updateBoard } = useBoard();
 
     const [, drop] = useDrop(
         () => ({
@@ -54,6 +56,13 @@ const ColumnContainer = ({ id, name, tasks }) => {
         const url = `/api/boards/${board.id}/columns/${id}/tasks/${task.id}`;
 
         try {
+            updateBoard({
+                columnId: id,
+                key: "TASK",
+                onSuccess: ({ task }) => task.finished = e.target.checked,
+                taskId: task.id
+            });
+
             const { status } = await fetch(url, options);
 
             if(status >= 300 || status < 200) throw new Error();
