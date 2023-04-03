@@ -6,6 +6,7 @@ import { useDrop } from "react-dnd";
 
 import classes from "./styles.module.css";
 import { AppContext } from "src/context/AppContext";
+import { getAuthorizationHeader } from "src/helpers/queries";
 import { ItemTypes } from "./components/task/assets/js/config";
 import { dropHandler, submitHandler } from "src/helpers/dnd";
 
@@ -30,6 +31,39 @@ const ColumnContainer = ({ id, name, tasks }) => {
             }
         }),
     [ board, fetchBoards, id, taskRef ]);
+
+    const taskFinishedChangeHandler = (task) => async (e) => {
+        const { description, dueDate, subTasks, title } = task;
+
+        const body = JSON.stringify(
+            {
+                ...( description ? { description } : {}),
+                ...(dueDate ? { dueDate } : {}),
+                finished: e.target.checked,
+                ...(subTasks ? { subTasks: subTasks.map(({ id, value }) => ({ id, name: value })) } : {}),
+                title,
+            }
+        );
+
+        const options = {
+            ...getAuthorizationHeader(),
+            body, 
+            method: "PUT"
+        }
+
+        const url = `/api/boards/${board.id}/columns/${id}/tasks/${task.id}`;
+
+        try {
+            const { status } = await fetch(url, options);
+
+            if(status >= 300 || status < 200) throw new Error();
+
+            await fetchBoards();
+        }
+        catch(e) {
+            console.error(e);
+        }
+    };
         
     return (
         <li 
@@ -61,7 +95,10 @@ const ColumnContainer = ({ id, name, tasks }) => {
                             footer={
                                 <footer className="flex mt-4 items-center justify-between w-full">
                                     <Task.DueDate date={task?.dueDate} />
-                                    <Task.Checkbox />
+                                    <Task.Checkbox 
+                                        onChange={taskFinishedChangeHandler(task)} 
+                                        value={task.finished}
+                                    />
                                 </footer>
                             }
                             columnId={id}

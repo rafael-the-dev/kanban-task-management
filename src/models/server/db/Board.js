@@ -138,7 +138,7 @@ class Board {
         )
     }
 
-    static async updateTask({ boardId, columnId, description, dueDate, subTasks, title, taskId  }, { mongoDbConfig, user }) {
+    static async updateTask({ boardId, columnId, description, dueDate, finished, subTasks, title, taskId  }, { mongoDbConfig, user }) {
         const { username } = user;
 
         const userDetails = await UserModel.get({ username }, { mongoDbConfig });
@@ -149,6 +149,7 @@ class Board {
         
         task.dueDate = dueDate;
         task.description = description;
+        task.finished = finished;
         task.subTasks = validSubTasks,
         task.title = title;
 

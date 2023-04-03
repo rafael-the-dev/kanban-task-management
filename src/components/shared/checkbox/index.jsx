@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 import classes from "./styles.module.css";
 
-const Checkbox = ({ isChecked }) => {
+const Checkbox = ({ value, ...rest }) => {
 
     return (
         <label 
@@ -10,9 +10,10 @@ const Checkbox = ({ isChecked }) => {
             id="check-container">
             <input 
                 className=''
+                checked={value}
                 id="check-input"
-                type="checkbox" 
-                checked={isChecked}
+                type="checkbox"
+                { ...rest }
             />
             <span className="checkmark" id="checkmark"></span>
         </label>

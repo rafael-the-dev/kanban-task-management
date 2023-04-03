@@ -11,7 +11,7 @@ const requestHandler = (req, res, { mongoDbConfig, user }) => {
                 .then(() => res.send());
         }
         case "PUT": {
-            const { description, dueDate, subTasks, role, source, title, target } = JSON.parse(body);
+            const { description, dueDate, finished, subTasks, role, source, title, target } = JSON.parse(body);
 
             return BoardModel
                 .updateTask(
@@ -19,6 +19,7 @@ const requestHandler = (req, res, { mongoDbConfig, user }) => {
                         boardId: id, 
                         columnId, 
                         description, dueDate, 
+                        finished,
                         role,
                         subTasks, source,
                         title, taskId, target: { columnId, taskId }
