@@ -2,6 +2,12 @@
     height: calc(100% - 49px);
 }
 
+@media screen and (min-width: 600px) {
+    .main {
+        height: calc(100% - 53px);
+    }
+}
+
 @media screen and (min-width: 1024px) {
     .main {
         height: calc(100% - 56px);

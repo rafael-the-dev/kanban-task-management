@@ -7,6 +7,8 @@
     width: 25px;
 }
 
-@media screen and (min-width: 900px) {
-    
+@media screen and (min-width: 1024px) {
+    .boardName {
+        max-width: 300px;
+    }
 }

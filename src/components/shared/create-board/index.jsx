@@ -110,7 +110,7 @@ const CreateBoardContainer = ({ id, onOpen }) => {
 
     const dialogHeaderMemo = React.useMemo(() => (
         <DialogHeader
-            classes={{ root: classNames("capitalize pl-3")}}
+            classes={{ root: classNames("bg-primary-700 capitalize pl-3 text-white"), button: classNames(`text-green-100`)}}
             onClose={closeHandler}>
             Add new board
         </DialogHeader>
@@ -204,12 +204,15 @@ const CreateBoardContainer = ({ id, onOpen }) => {
                         { addColumnButton }
                     </fieldset>
                 </div>
-                <Button
-                    color="primary"
-                    classes={{ button: "bg-primary-600 rounded-none w-full sm:py-3 hover:bg-primary-700" }}
-                    type="submit">
-                    { loading ? "Loading..." : "Send" }
-                </Button>
+                <div className="flex justify-end py-3 px-6">
+                    <Button
+                        color="primary"
+                        classes={{ button: "bg-primary-600 rounded-none sm:px-8 sm:py-3 hover:bg-primary-700" }}
+                        type="submit">
+                        { loading ? "Loading..." : "Send" }
+                    </Button>
+                </div>
+                
             </form>
             { messageDialogMemo }
         </Dialog>

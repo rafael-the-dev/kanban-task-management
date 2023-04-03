@@ -53,7 +53,7 @@ const Menu = () => {
                 classes={{ button: "bg-transparent capitalize py-0 shadow-none text-black hover:bg-transparent hover:shadow-none hover:text-primary-700" }}
                 endIcon={ open ? <KeyboardArrowUpIcon className="text-primary-600" /> : <KeyboardArrowDownIcon className="text-primary-600" /> }
                 onClick={toggleState}>
-                { board.name }
+                <span className={classNames(classes.buttonText, 'overflow-hidden text-ellipsis whitespace-nowrap')}>{ board.name }</span>
             </Button>
             { componentsMemo }
         </>

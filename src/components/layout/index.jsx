@@ -24,7 +24,7 @@ const LayoutContainer = ({ children }) => {
 
     return (
         <div className={classNames(classes.root, `h-screen items-stretch xl:flex`)}>
-            <Hidden lgDown>
+            <Hidden xlDown>
                 <Menu />
             </Hidden>
             <div className={classNames("grow h-full overflow-y-auto",

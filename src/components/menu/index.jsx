@@ -22,10 +22,10 @@ const Menu = () => {
 
     return (
         <>
-            <Hidden lgDown>
+            <Hidden xlDown>
                 <Container />
             </Hidden>
-            <Hidden lgUp>
+            <Hidden xlUp>
                 <IconButton 
                     className="p-0 hover:bg-transparent"
                     onClick={clickHandler}>

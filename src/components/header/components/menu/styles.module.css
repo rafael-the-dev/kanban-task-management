@@ -8,8 +8,30 @@
     width: 90%;
 }
 
+.buttonText {
+    max-width: 100px;
+}
+
+@media screen and (min-width: 450px) {
+    .buttonText {
+        max-width: 150px;
+    }
+}
+
 @media screen and (min-width: 600px) {
     .drawerPaper {
         width: 400px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .buttonText {
+        max-width: 200px;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .buttonText {
+        max-width: 250px;
     }
 }

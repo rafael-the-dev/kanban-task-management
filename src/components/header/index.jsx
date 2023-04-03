@@ -6,21 +6,12 @@ import classNames from "classnames"
 
 import classes from "./styles.module.css";
 
-import LogoImage from "public/images/icons/logo-light.svg"
-
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
 import { AppContext, LoginContext } from "src/context";
 
-import Avatar from "./components/avatar";
 import AddColumnTask from "./components/add-board-column-task";
 import BoardMenu from "./components/board-menu";
-import Image from "src/components/shared/image";
-import Link from "../link";
 import Logo from "src/components/shared/logo";
 import Menu from "./components/menu";
-import SearchField from "./components/search-field";
-import Title from "../title";
 
 const Header = () => {
     const { loggedUser } = React.useContext(LoginContext);
@@ -36,15 +27,16 @@ const Header = () => {
         <header className={classNames("xl:border-l border-solid border-stone-300")}>
             <div className={classNames("flex items-center justify-between px-5 py-2 relative xl:px-10")}>
                 <div className="flex items-center pl-2 xl:pl-0">
-                    <Logo lgUp />
-                    <Hidden lgUp>
+                    <Logo xlUp />
+                    <Hidden xlUp>
                         <Menu />
                     </Hidden>
                     { board && (
-                        <Hidden lgDown>
+                        <Hidden xlDown>
                             <Typography
                                 component='h2'
-                                className="font-semibold text-2xl">
+                                className={classNames(classes.boardName, `font-semibold 
+                                    overflow-hidden whitespace-nowrap text-ellipsis text-2xl`)}>
                                 { board.name }
                             </Typography>
                         </Hidden>
