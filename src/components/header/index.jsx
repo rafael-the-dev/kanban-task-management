@@ -15,7 +15,9 @@ import Menu from "./components/menu";
 
 const Header = () => {
     const { loggedUser } = React.useContext(LoginContext);
-    const { board } = React.useContext(AppContext);
+    const { board, boards } = React.useContext(AppContext);
+
+    const isEmptyList = boards.list.length === 0
 
     const router = useRouter();
     const { pathname } = router;
@@ -24,7 +26,7 @@ const Header = () => {
     if([ "/sign-up", "/login" ].includes(pathname)) return <></>;
 
     return (
-        <header className={classNames("xl:border-l border-solid border-stone-300")}>
+        <header className={classNames("xl:border-l border-solid border-stone-300", { "xl:hidden": isEmptyList })}>
             <div className={classNames("flex items-center justify-between px-5 py-2 relative xl:px-10")}>
                 <div className="flex items-center pl-2 xl:pl-0">
                     <Logo xlUp />

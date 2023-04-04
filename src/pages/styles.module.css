@@ -13,4 +13,8 @@
         height: calc(100% - 56px);
         width: calc(100vw - 240px);
     }
+    
+    .mainEmptyList {
+        height: 100%;
+    }
 }
