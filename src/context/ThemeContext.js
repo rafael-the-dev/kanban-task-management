@@ -4,43 +4,71 @@ export const ThemeContext = createContext();
 ThemeContext.displayName = 'ThemeContext';
 
 export const ThemeContextProvider = ({ children }) => {
-    const themesRef = useRef({
-        blue: 'blue-theme',
-        pink: 'pink-theme'
+    const [ theme, setTheme ] = useState(() => {
+        try {
+            const savedTheme = localStorage.getItem(process.env.LOCAL_STORAGE);
+            const currentTheme = JSON.parse(savedTheme).theme;
+
+            if(currentTheme) return currentTheme;
+        } catch(e) {
+
+        }
+
+        return "LIGHT";
     });
 
-    const [ theme, setTheme ] = useState(themesRef.blue);
-    const oldTheme = useRef(themesRef.blue)
-
-
-    const setAppTheme = useCallback(prop => setTheme(prop), []);
-
-
-    useEffect(() => {
-        if(!localStorage.getItem('rafael-the-dev__theme')) {
-            localStorage.setItem('rafael-the-dev__theme', JSON.stringify(themesRef.current.blue));
-        }
+    const isFirstRendering = useRef(true);
+    console.log('status', theme)
+    const saveThemeOnLocalStorage = useCallback((props) => {
+        const currentState = JSON.parse(localStorage.getItem(process.env.LOCAL_STORAGE));
+        console.log(currentState);
+        console.log(props)
+        localStorage.setItem(process.env.LOCAL_STORAGE, JSON.stringify({ ...currentState, ...props }));
     }, []);
 
+    /**
+    * Check if browser has process.env.LOCAL_STORAGE value if does not, create it
+    */
     useEffect(() => {
-        const stringifiedTheme = localStorage.getItem('rafael-the-dev__theme');
+        if(!localStorage.getItem(process.env.LOCAL_STORAGE)) {
+            saveThemeOnLocalStorage({ theme: "LIGHT"});
+        }
+    }, [ saveThemeOnLocalStorage ]);
+
+    /** 
+    * Get saved theme value and update theme
+    */
+    useEffect(() => {
+        const stringifiedTheme = localStorage.getItem(process.env.LOCAL_STORAGE);
         if(stringifiedTheme) {
-            const storedTheme = JSON.parse(stringifiedTheme);
-            setTheme(storedTheme);
+            const storedTheme = JSON.parse(stringifiedTheme).theme;
+            if(storedTheme) setTheme(storedTheme);
         }
     }, []);
 
     useEffect(() => {
-        if(theme) {
-            document.querySelector('html').classList.remove(oldTheme.current);
-            document.querySelector('html').classList.add(theme);
-            oldTheme.current = theme;
-        } 
+        console.log("theme")
+        if(isFirstRendering.current) {
+            isFirstRendering.current = false;
+            return;
+        }
 
-        localStorage.setItem('rafael-the-dev__theme', JSON.stringify(theme));
-    }, [ theme ])
+        if(theme === "DARK") {
+            document.querySelector('html').classList.add("dark");
+        } else {
+            document.querySelector('html').classList.remove("dark");
+        }
+
+        saveThemeOnLocalStorage({ theme })
+    }, [ saveThemeOnLocalStorage, theme ])
 
     return (
-        <ThemeContext.Provider value={{ setAppTheme, themesRef }}>{ children }</ThemeContext.Provider>
+        <ThemeContext.Provider 
+            value={{ 
+                setTheme, 
+                theme 
+            }}>
+            { children }
+        </ThemeContext.Provider>
     );
 }

@@ -18,6 +18,7 @@ import 'src/styles/checkbox.css';
 import 'src/styles/tailwind.css';
 
 import { AppContextProvider, LoginContextProvider } from 'src/context';
+import { ThemeContextProvider } from "src/context/ThemeContext";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -36,13 +37,15 @@ function MyApp(props) {
                         <ThemeProvider theme={theme}>
                             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                             <CssBaseline />
-                            <LocalizationProvider dateAdapter={AdapterMoment}>
-                                <DndProvider backend={HTML5Backend}>
-                                    <Layout>
-                                        <Component {...pageProps} />
-                                    </Layout>
-                                </DndProvider>
-                            </LocalizationProvider>
+                            <ThemeContextProvider>
+                                <LocalizationProvider dateAdapter={AdapterMoment}>
+                                    <DndProvider backend={HTML5Backend}>
+                                        <Layout>
+                                            <Component {...pageProps} />
+                                        </Layout>
+                                    </DndProvider>
+                                </LocalizationProvider>
+                            </ThemeContextProvider>
                         </ThemeProvider>
                     </CacheProvider>
                 </AppContextProvider>

@@ -16,8 +16,7 @@ import TimelineIcon from '@mui/icons-material/Timeline';
 import BoardsList from "src/components/shared/boards-list";
 import CreateBoard from 'src/components/header/components/menu/components/create-board';
 import Logo from "src/components/shared/logo";
-import Link from "src/components/link";
-import ListItem from "../list-item";
+import ThemeSwitcher from "src/components/shared/theme-toggle";
 
 const Container = () => {
     const [ open, setOpen ] = React.useState(false);
@@ -37,6 +36,7 @@ const Container = () => {
                 <CreateBoard />
             </div>
             <div >
+                <ThemeSwitcher />
                 <Button
                     className={classNames(classes.button, "bg-slate-300 hidden xl:flex hover:bg-slate-400", { [classes.buttonOpen]: open})}
                     onClick={toggle}>
@@ -48,27 +48,3 @@ const Container = () => {
 };
 
 export default Container;
-
-/**
-                <ul className="py-3 lg:pt-6">
-                    <ListItem 
-                        classes={{ button: "text-black" }} href="/dashboard">
-                        <HomeIcon /> <span className={classNames(classes.label, { [classes.labelOpen]: open })}>Home</span>
-                    </ListItem>
-                    <ListItem 
-                        classes={{ button: "text-black" }} href="/sales">
-                        <ShoppingCartIcon /> <span className={classNames(classes.label, { [classes.labelOpen]: open })}>Home</span>
-                    </ListItem>
-                    <ListItem 
-                        classes={{ button: "text-black" }}>
-                        <ReceiptLongIcon /> <span className={classNames(classes.label, { [classes.labelOpen]: open })}>Home</span>
-                    </ListItem>
-                    <ListItem 
-                        classes={{ button: "text-black" }}>
-                        <PaidIcon /> <span className={classNames(classes.label, { [classes.labelOpen]: open })}>Home</span>
-                    </ListItem>
-                    <ListItem 
-                        classes={{ button: "text-black" }}>
-                        <TimelineIcon /> <span className={classNames(classes.label, { [classes.labelOpen]: open })}>Home</span>
-                    </ListItem>
-                </ul> */
