@@ -10,9 +10,14 @@ export const useTheme = () => {
     const setDarkTheme = React.useCallback(() => setTheme("DARK"), [ setTheme ]);
     const setLightTheme = React.useCallback(() => setTheme("LIGHT"), [ setTheme ]);
 
+    const toggleTheme = React.useCallback(() => {
+        setTheme((theme) => {
+            return theme === "LIGHT" ? "DARK" : "LIGHT";
+        })
+    }, [ setTheme ])
+
     return {
         isDarkTheme,
-        setDarkTheme,
-        setLightTheme
+        toggleTheme
     }
 };
