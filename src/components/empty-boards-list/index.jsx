@@ -14,7 +14,7 @@ const EmptyBoardsList = () => {
         <div className="flex flex-col h-full xl:h-screen items-center justify-center ">
             <Typography
                 component="h2"
-                className={classNames("font-bold mb-4 text-xl")}>
+                className={classNames("font-bold mb-4 text-xl dark:text-white")}>
                 No boards available
             </Typography>
             <Button

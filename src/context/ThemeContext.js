@@ -1,4 +1,6 @@
-import { createContext, useCallback, useEffect, useRef, useState } from 'react';
+import { createContext, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export const ThemeContext = createContext();
 ThemeContext.displayName = 'ThemeContext';
@@ -17,8 +19,25 @@ export const ThemeContextProvider = ({ children }) => {
         return "LIGHT";
     });
 
+    const isDarkTheme = useMemo(() => theme === "DARK", [ theme ]);
+
+    const muiTheme = createTheme({
+        breakpoints: {
+            values: {
+            xs: 0,
+            sm: 600,
+            md: 768,
+            lg: 900,
+            xl: 1024,
+            },
+        },
+        palette: {
+            mode: theme.toLowerCase()
+        }
+    });
+
     const isFirstRendering = useRef(true);
-    console.log('status', theme)
+    
     const saveThemeOnLocalStorage = useCallback((props) => {
         const currentState = JSON.parse(localStorage.getItem(process.env.LOCAL_STORAGE));
         console.log(currentState);
@@ -47,28 +66,32 @@ export const ThemeContextProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        console.log("theme")
         if(isFirstRendering.current) {
             isFirstRendering.current = false;
             return;
         }
 
-        if(theme === "DARK") {
+        if(isDarkTheme) {
             document.querySelector('html').classList.add("dark");
         } else {
             document.querySelector('html').classList.remove("dark");
         }
 
         saveThemeOnLocalStorage({ theme })
-    }, [ saveThemeOnLocalStorage, theme ])
+    }, [ isDarkTheme, saveThemeOnLocalStorage, theme ])
 
     return (
         <ThemeContext.Provider 
             value={{ 
+                isDarkTheme,
                 setTheme, 
                 theme 
             }}>
-            { children }
+            <ThemeProvider theme={muiTheme}>
+                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                <CssBaseline />
+                { children }
+            </ThemeProvider>
         </ThemeContext.Provider>
     );
 }

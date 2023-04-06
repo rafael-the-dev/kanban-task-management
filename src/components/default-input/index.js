@@ -1,7 +1,9 @@
-import { TextField } from "@mui/material";
-import { styled } from "@mui/material/styles"
+import TextField from "@mui/material/TextField";
+import { styled } from "@mui/material/styles";
 
-const Input = styled(TextField)({
+const isDarkMode = theme => theme.palette.mode === "dark";
+
+const Input = styled(TextField)(({ theme }) => ({
     '&': {
         marginBottom: "1rem"
     },
@@ -10,7 +12,10 @@ const Input = styled(TextField)({
     },
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
         borderColor: "#00748f"
+    },
+    "& .MuiFormLabel-root": {
+        ...( isDarkMode(theme) ? { color: "#FFF" } : {} )
     }
-});
+}));
 
 export default Input;

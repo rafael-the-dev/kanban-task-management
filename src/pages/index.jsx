@@ -13,7 +13,7 @@ const Home = () => {
     const isEmptyList = boards.list.length === 0;
 
     return (
-        <main className={classNames(classes.main, `bg-primary-50 `, { [classes.mainEmptyList]: isEmptyList })}>
+        <main className={classNames(classes.main, `bg-primary-50 dark:bg-dark-700`, { [classes.mainEmptyList]: isEmptyList })}>
             {
                 isEmptyList ? <EmptyBoardsListMessage /> : <Board />
             }

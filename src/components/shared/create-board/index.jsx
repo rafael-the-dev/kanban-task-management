@@ -110,7 +110,10 @@ const CreateBoardContainer = ({ id, onOpen }) => {
 
     const dialogHeaderMemo = React.useMemo(() => (
         <DialogHeader
-            classes={{ root: classNames("bg-primary-700 capitalize pl-3 text-white"), button: classNames(`text-green-100`)}}
+            classes={{ 
+                root: classNames("bg-primary-700 capitalize pl-3 text-white dark:bg-dark-600"), 
+                button: classNames(`text-green-100 dark:opacity-80 dark:text-white`)
+            }}
             onClose={closeHandler}>
             Add new board
         </DialogHeader>
@@ -119,7 +122,8 @@ const CreateBoardContainer = ({ id, onOpen }) => {
     const nameInputMemo = React.useMemo(() => (
         <TextField 
             { ...name }
-            className="capitalize"
+            className="capitalize dark:border-white dark:text-white"
+            classes={{ root: "dark:text-white", label: "dark:text-white" }}
             fullWidth
             label="Board name"
             onChange={changeHandler}
@@ -135,7 +139,7 @@ const CreateBoardContainer = ({ id, onOpen }) => {
     const columnsTitleMemo = React.useMemo(() => (
         <Typography
             component="legend"
-            className="">
+            className="dark:text-white">
             Board columns
         </Typography>
     ), [])
@@ -194,7 +198,7 @@ const CreateBoardContainer = ({ id, onOpen }) => {
             onOpen={onOpen}>
             { dialogHeaderMemo }
             <form 
-                className="flex flex-col grow items-stretch justify-between"
+                className="flex flex-col grow items-stretch justify-between dark:bg-dark-600"
                 onSubmit={submitHandler}>
                 <div className={classNames(classes.content, "grow overflow-y-auto px-5 py-3")}>
                     { nameInputMemo }
