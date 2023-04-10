@@ -30,7 +30,7 @@ const CreateBoardContainer = ({ children, columnId, customClose, onOpen, title, 
         <DialogHeader
             classes={{ 
                 button: classNames("text-gray-100"),
-                root: classNames("bg-primary-700 capitalize opacity-80 pl-3 text-white")
+                root: classNames("bg-primary-700 capitalize opacity-80 pl-3 text-white dark:bg-dark-600")
             }}
             onClose={closeHandler}>
             { title }

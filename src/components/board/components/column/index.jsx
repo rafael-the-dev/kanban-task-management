@@ -80,7 +80,7 @@ const ColumnContainer = ({ id, name, tasks }) => {
             ref={drop}>
             <div className="flex items-center justify-between px-3">
                 <Typography
-                    className={classNames("text-stone-600")}
+                    className={classNames("text-stone-600 dark:text-white")}
                     component="h2">
                     { name } ({ tasks.length })
                 </Typography>
@@ -93,7 +93,7 @@ const ColumnContainer = ({ id, name, tasks }) => {
                             { ...task }
                             header={
                                 <header>
-                                    <Task.Title>{ task?.title }</Task.Title>
+                                    <Task.Title className="dark:text-white dark:opacity-90">{ task?.title }</Task.Title>
                                 </header>
                             }
                             body={

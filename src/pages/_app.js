@@ -1,10 +1,7 @@
 import * as React from 'react';
 import Head from 'next/head';
-import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider } from '@emotion/react';
-import { theme } from 'src/material-ui/theme';
 import createEmotionCache from 'src/material-ui/createEmotionCache';
-import { ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DndProvider } from 'react-dnd';
