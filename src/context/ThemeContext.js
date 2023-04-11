@@ -66,10 +66,10 @@ export const ThemeContextProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        if(isFirstRendering.current) {
+        /*if(isFirstRendering.current) {
             isFirstRendering.current = false;
             return;
-        }
+        }*/
 
         if(isDarkTheme) {
             document.querySelector('html').classList.add("dark");

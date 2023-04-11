@@ -94,13 +94,15 @@ const Container = () => {
     ), []);
 
     const legendMemo = useMemo(() => (
-        <Typography className="font-bold mb-8 text-center text-gray-100 text-2xl uppercase lg:text-black">
+        <Typography className="font-bold mb-8 text-center text-gray-100 text-2xl uppercase lg:text-black 
+            dark:lg:text-white">
             Login
         </Typography>
     ), []);
 
     const passwordMemo = useMemo(() => (
-        <div className={classNames(`border border-solid border-blue-700 flex items-center mt-4 px-3 rounded-lg dark:bg-stone-400`)}>
+        <div className={classNames(`border border-solid border-blue-700 flex items-center mt-4 px-3 rounded-lg
+         dark:border-stone-500`)}>
             <IconButton
                 aria-label="toggle password visibility"
                 onClick={handleClickShowPassword}
@@ -110,7 +112,7 @@ const Container = () => {
                 { values.showPassword ? <VisibilityOff className="text-slate-700" /> : <Visibility className="text-slate-700" />}
             </IconButton>
             <Input 
-                className="border-0 grow"
+                className="border-0 grow dark:text-white"
                 onChange={handleChange('password')}
                 placeholder="password"
                 ref={passwordRef}
@@ -122,10 +124,11 @@ const Container = () => {
     ), [ handleChange, handleClickShowPassword, handleMouseDownPassword, values ]);
 
     const usernameMemo = useMemo(() => (
-        <div className={classNames(`border border-solid border-blue-700 flex items-center mt-4 px-3 rounded-lg dark:bg-stone-400`)}>
+        <div className={classNames(`border border-solid border-blue-700 flex items-center mt-4 px-3 rounded-lg
+         dark:border-stone-500`)}>
             <AccountCircle className="text-slate-700" />
             <Input 
-                className="border-0 grow"
+                className="border-0 grow dark:text-white"
                 placeholder="Username"
                 ref={userNameRef}
                 required

@@ -49,7 +49,7 @@ const Container = () => {
     const legendMemo = useMemo(() => (
         <Typography 
             component="legend"
-            className="font-bold mb-20 text-gray-100 text-center text-2xl uppercase">
+            className="font-bold mb-20 text-gray-100 text-center text-2xl uppercase dark:lg:text-white">
             Sign up
         </Typography>
     ), []);
@@ -130,7 +130,8 @@ const Container = () => {
     }, [ onSubmit ]);
 
     return (
-        <div className="bg-stone-100 min-h-screen flex items-center justify-center w-full px-5 py-20 md:px-0">
+        <div className="bg-stone-100 min-h-screen flex items-center justify-center w-full px-5 py-20 md:px-0
+        dark:bg-dark-700">
             <Paper 
                 className={classNames(classes.signUpContainer, `px-5 py-8 relative rounded-2xl w-full md:px-6
                     before:absolute before:bg-primary-600 before:block before:left-0 before:top-0`)}
