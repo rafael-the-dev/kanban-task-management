@@ -83,7 +83,7 @@ const Form = ({ children, href }) => {
 
     return (
         <form 
-            className="flex flex-col grow items-stretch justify-between pt-3"
+            className="flex flex-col grow items-stretch justify-between pt-3 dark:bg-dark-600"
             onSubmit={submitHandler}>
             { children }
             { messageDialogMemo }
