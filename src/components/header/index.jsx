@@ -26,8 +26,8 @@ const Header = () => {
     if([ "/sign-up", "/login" ].includes(pathname)) return <></>;
 
     return (
-        <header className={classNames("xl:border-l border-solid border-stone-300", { "xl:hidden": isEmptyList })}>
-            <div className={classNames("flex items-center justify-between px-5 py-2 relative xl:px-10")}>
+        <header className={classNames("xl:border-l dark:border-b dark:border-l-0 border-solid border-stone-300 dark:border-stone-500", { "xl:hidden": isEmptyList })}>
+            <div className={classNames("flex items-center justify-between px-5 py-2 relative xl:px-10 dark:bg-dark-700")}>
                 <div className="flex items-center pl-2 xl:pl-0">
                     <Logo xlUp />
                     <Hidden xlUp>
@@ -37,7 +37,7 @@ const Header = () => {
                         <Hidden xlDown>
                             <Typography
                                 component='h2'
-                                className={classNames(classes.boardName, `font-semibold 
+                                className={classNames(classes.boardName, `font-semibold dark:text-white
                                     overflow-hidden whitespace-nowrap text-ellipsis text-2xl`)}>
                                 { board.name }
                             </Typography>

@@ -66,7 +66,7 @@ const TaskCard = ({ body, columnId, footer, header, id }) => {
             <Button 
                 className={classNames(`justify-start normal-case px-4 py-3 rounded-lg text-left w-full 
                     first-letter:capitalize`,
-                    isDragging ? "bg-primary-200" : "bg-white hover:bg-primary-100")}
+                    isDragging ? "bg-primary-200" : "bg-white hover:bg-primary-100 dark:bg-dark-600")}
                 onClick={clickHandler}
                 ref={drag}
                 { ...collected }>

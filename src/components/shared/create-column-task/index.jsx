@@ -39,7 +39,7 @@ const CreateBoardContainer = ({ children, columnId, customClose, onOpen, title, 
 
     return (
         <Dialog
-            classes={{ paper: classNames(classes.paper, `m-0`) }}
+            classes={{ paper: classNames(classes.paper, `m-0 dark:bg-dark-700`) }}
             customClose={customClose}
             onClose={onClose}
             onOpen={onOpen}>

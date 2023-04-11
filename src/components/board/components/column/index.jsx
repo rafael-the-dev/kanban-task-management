@@ -76,7 +76,8 @@ const ColumnContainer = ({ id, name, tasks }) => {
         
     return (
         <li 
-            className={classNames(classes.container, `border border-solid border-stone-300 mr-4 py-2 rounded-lg`)}
+            className={classNames(classes.container, `border border-solid border-stone-300 mr-4 py-2 rounded-lg
+                dark:border-stone-600`)}
             ref={drop}>
             <div className="flex items-center justify-between px-3">
                 <Typography
