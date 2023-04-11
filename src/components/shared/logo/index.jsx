@@ -15,7 +15,7 @@ const Logo = (props) => (
             <LogoImage />
             <Typography
                 component="h1"
-                className="font-bold hidden ml-3 text-black text-xl xl:inline-block">
+                className="font-bold hidden ml-3 text-black text-xl xl:inline-block dark:text-white">
                 Kanban
             </Typography>
         </Link>

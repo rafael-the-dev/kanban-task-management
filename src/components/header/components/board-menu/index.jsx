@@ -36,7 +36,7 @@ const BoardOptions = () => {
                 onOpen={onOpenBoardDialog}
             />
             <Popover
-                paperClassName={classNames(classes.paper)}
+                paperClassName={classNames(classes.paper, `dark:bg-dark-700`)}
                 onClickRef={onClickRef}
                 onCloseRef={onCloseRef}>
                 <div className="flex flex-col items-stretch">

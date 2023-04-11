@@ -26,7 +26,8 @@ const Container = () => {
     return (
         <aside 
             className={classNames(classes.container, `bg-stone-100 flex flex-col h-screen xl:h-full 
-            justify-between overflow-hidden pl-5 pb-6 xl:bg-white xl:pl-0`,
+            justify-between overflow-hidden pl-5 pb-6 xl:bg-white xl:pl-0 dark:bg-dark-700 dark:border-r
+            dark:border-stone-500 dark:border-solid`,
             { [classes.containerOpen]: open })}>
             <div>
                 <div className="pr-5 py-4 rounded-full xl:mb-8 xl:pl-4 lg:py-3 xl:rounded-none">
@@ -37,11 +38,6 @@ const Container = () => {
             </div>
             <div >
                 <ThemeSwitcher />
-                <Button
-                    className={classNames(classes.button, "bg-slate-300 hidden xl:flex hover:bg-slate-400", { [classes.buttonOpen]: open})}
-                    onClick={toggle}>
-                    { open ? <ArrowBackIcon /> : <ArrowForwardIcon /> }
-                </Button>
             </div>
         </aside>
     );

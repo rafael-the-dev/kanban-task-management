@@ -11,7 +11,7 @@ const BoardsList = () => {
     return (
         <div>
             <Typography
-                className="mb-3 pl-3">
+                className="mb-3 pl-3 dark:text-white">
                 All boards ({ list.length })
             </Typography>
             <ul>

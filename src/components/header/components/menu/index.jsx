@@ -29,7 +29,7 @@ const Menu = () => {
     const componentsMemo = React.useMemo(() => (
         <Drawer
             anchor="top"
-            classes={{ paper: classNames(classes.drawerPaper, `mx-auto py-3 rounded-lg sm:ml-5`), root: classNames(classes.drawerRoot) }}
+            classes={{ paper: classNames(classes.drawerPaper, `mx-auto py-3 rounded-lg sm:ml-5 dark:bg-dark-700`), root: classNames(classes.drawerRoot) }}
             customClose={toggleState}
             onClose={onCloseRef}
             onOpen={onOpenRef}>
@@ -50,7 +50,7 @@ const Menu = () => {
         <>
             <Button
                 color="no-color"
-                classes={{ button: "bg-transparent capitalize py-0 shadow-none text-black hover:bg-transparent hover:shadow-none hover:text-primary-700" }}
+                classes={{ button: "bg-transparent capitalize py-0 shadow-none text-black hover:bg-transparent hover:shadow-none hover:text-primary-700 dark:text-white" }}
                 endIcon={ open ? <KeyboardArrowUpIcon className="text-primary-600" /> : <KeyboardArrowDownIcon className="text-primary-600" /> }
                 onClick={toggleState}>
                 <span className={classNames(classes.buttonText, 'overflow-hidden text-ellipsis whitespace-nowrap')}>{ board.name }</span>
