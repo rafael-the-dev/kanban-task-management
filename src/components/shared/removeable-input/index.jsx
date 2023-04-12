@@ -40,10 +40,10 @@ const ColumnInput = ({ list, error, id, setList, value }) => {
                 helperText={ error ? "Column name must not be empty" : "" }
                 onChange={changeHandler}
                 placeholder="Insert column name"
+                required
                 value={value}
             />
             <IconButton
-                disabled={list.length === 1}
                 onClick={deleteHandler}>
                 <CloseIcon />
             </IconButton>

@@ -127,6 +127,7 @@ const CreateBoardContainer = ({ id, onOpen }) => {
             fullWidth
             label="Board name"
             onChange={changeHandler}
+            required
         />
     ), [ name, changeHandler ]);
 

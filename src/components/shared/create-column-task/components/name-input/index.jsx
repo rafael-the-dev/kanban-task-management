@@ -23,6 +23,7 @@ const NameInput = () => {
             fullWidth
             label="Title"
             onChange={changeHandler}
+            required
         />
     ), [ name, changeHandler ]);
 

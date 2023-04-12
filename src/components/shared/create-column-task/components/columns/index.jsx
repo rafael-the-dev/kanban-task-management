@@ -23,7 +23,7 @@ const Columns = () => {
         })
     }, [ setSubTasks ]);
 
-    React.useEffect(() => {
+    /*React.useEffect(() => {
         try {
             setSubTasks(columns => {
                 if(columns.length === 0)  {
@@ -36,7 +36,7 @@ const Columns = () => {
         } catch(e) {
 
         }
-    }, [ createSubTask, setSubTasks ])
+    }, [ createSubTask, setSubTasks ]);*/
 
     return (
         <fieldset>
