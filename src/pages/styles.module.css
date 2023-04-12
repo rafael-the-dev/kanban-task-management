@@ -10,7 +10,7 @@
 
 @media screen and (min-width: 1024px) {
     .main {
-        height: calc(100% - 54px);
+        height: calc(100% - 53px);
         width: calc(100vw - 240px);
     }
     

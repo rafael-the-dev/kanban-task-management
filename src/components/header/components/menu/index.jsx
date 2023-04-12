@@ -12,6 +12,7 @@ import Button from "src/components/shared/button";
 import BoardsList from "src/components/shared/boards-list";
 import CreateBoard from './components/create-board';
 import Drawer from "src/components/drawer";
+import ThemeSwitcher from "src/components/shared/theme-toggle";
 
 const Menu = () => {
     const { board, boards } = React.useContext(AppContext);
@@ -35,6 +36,9 @@ const Menu = () => {
             onOpen={onOpenRef}>
             <BoardsList />
             <CreateBoard />
+            <div className="px-6 mt-2">
+                <ThemeSwitcher />
+            </div>
         </Drawer>
     ), [ toggleState ]);
 

@@ -33,7 +33,7 @@ const CreateTaskButtonsContainer = () => {
                     className="bg-primary-600 capitalize px-3 rounded-full text-white hover:bg-primary-700"
                     onClick={clickHandler}
                     startIcon={<AddIcon />}>
-                    Add new task
+                    Add new column
                 </Button>
             </Hidden>
             <Dialog 
