@@ -1,16 +1,10 @@
-const cookie = require("cookie");
 const DefaultError = require("src/models/server/errors/DefaultError");
 
 const Access = require("src/models/server/Access");
 //const { createDBConnection } = require("src/connections/mysql");
 const { createMongoDBConnection, mongoDBConfig } = require("src/connections/mongo_db");
 
-/*let dbConfig = { 
-    db: null,
-    isConnected: false 
-};*/
-
-let mongoDbConfig = {
+var mongoDbConfig = {
     isConnected: false 
 };
 
@@ -41,8 +35,6 @@ const apiHandler = (handler) => {
 
         const { authorization } = req.headers;
         
-        const { token } = cookie.parse(req.headers.cookie ?? "");
-
         try {
             res.setHeader("Access-Control-Allow-Origin", "*");
             res.setHeader(
@@ -58,7 +50,7 @@ const apiHandler = (handler) => {
             let user = null;
             
             if(!hasFreeAccess(req)) {
-                user = Access.getUser(authorization ?? token);
+                user = Access.getUser(authorization);
             }
 
             await handler(req, res, { user, mongoDbConfig });
