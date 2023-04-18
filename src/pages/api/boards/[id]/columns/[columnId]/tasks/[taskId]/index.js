@@ -15,7 +15,7 @@ const requestHandler = (req, res, { mongoDbConfig, user }) => {
             const { description, dueDate, finished, subTasks, role, source, title } = JSON.parse(body);
 
             return BoardColumnTask
-                .update(
+                .swap(
                     { 
                         boardId: id, 
                         columnId, 

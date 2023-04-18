@@ -9,7 +9,7 @@ const UserModel = require("./User");
 
 const validateSubTasks = ({ subTasks }) => {
     const createdAt = getIsoDate();
-    console.log(subTasks)
+    
     const result = subTasks
         .filter(({ name }) => Boolean(name) && Boolean(name.trim()))
         .map(({ id, name }) => {
