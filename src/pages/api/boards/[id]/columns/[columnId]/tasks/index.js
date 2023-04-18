@@ -1,6 +1,6 @@
 const { apiHandler } = require("src/middlewares/api-handler");
 
-const BoardModel = require("src/models/server/db/Board")
+const BoardColumnTask = require("src/models/server/db/BoardColumnTask");
 
 const requestHandler = (req, res, { mongoDbConfig, user }) => {
     const { body, method, query: { columnId, id } } = req;
@@ -9,7 +9,8 @@ const requestHandler = (req, res, { mongoDbConfig, user }) => {
         case "POST": {
             const { description, dueDate, subTasks, title } = JSON.parse(body);
             
-            return BoardModel.createTask({ boardId: id, columnId, description, dueDate, subTasks, title }, { mongoDbConfig, user })
+            return BoardColumnTask
+                .create({ boardId: id, columnId, description, dueDate, subTasks, title }, { mongoDbConfig, user })
                 .then(() => res.status(201).send());
         }
         default: {
