@@ -10,7 +10,8 @@ import { SignUpContext, SignUpContextProvider } from "src/context"
 
 import { Button, Input } from "src/components/pages-components/signup-page";
 import DefaultInput from "src/components/default-input";
-import Link from "src/components/link"
+import Link from "src/components/link";
+import MessageDialog from "src/components/message-dialog";
 
 const Container = () => {
     const { 
@@ -42,9 +43,12 @@ const Container = () => {
     const firstNameRef = useRef(null)
     const passwordRef = useRef(null);
     const lastNameRef = useRef(null);
+    const setDialogMessage = useRef(null);
     const userNameRef = useRef(null);
+    const wasUserRegistered = useRef(false);
 
-    const changeHandler = useCallback((e) => setUser(e.target.value), [ setUser ])
+    const changeHandler = useCallback((e) => setUser(e.target.value), [ setUser ]);
+
 
     const legendMemo = useMemo(() => (
         <Typography 
@@ -74,7 +78,22 @@ const Container = () => {
             ref={lastNameRef}
             value={lastName.value}
         />
-    ), [ lastName, lastNameChangeHandler ])
+    ), [ lastName, lastNameChangeHandler ]);
+
+    const router = useRouter();
+
+    const closeHelper = useCallback(() => {
+        if(wasUserRegistered.current) {
+            router.push('/login');
+        }
+    }, [ router ])
+
+    const messageDialogMemo = useMemo(() => (
+        <MessageDialog
+            closeHelper={closeHelper}
+            setDialogMessage={setDialogMessage}
+        />
+    ), [ closeHelper ])
 
     const usernameMemo = useMemo(() => (
         <Input 
@@ -119,14 +138,39 @@ const Container = () => {
         </Typography>
     ), []);
 
-    const submitHandler = useCallback(e => {
+    const submitHandler = useCallback(async e => {
         e.preventDefault();
 
-        onSubmit({
+        const res = await onSubmit({
             firstName: firstNameRef.current.value,
             lastName: lastNameRef.current.value,
             username: userNameRef.current.value
-        })
+        });
+
+        if(res.status === 201) {
+            wasUserRegistered.current = true;
+            setDialogMessage.current?.({
+                description: "User was successfully registered.",
+                title: "Success",
+                type: "success"
+            });
+            return;
+        }
+
+        wasUserRegistered.current = false;
+        let message = {
+            description: "User not registered.",
+            title: "Error",
+            type: "error"
+        }
+
+        try {
+            const errorMessage = await res.json();
+            message.description = errorMessage.message;
+        } 
+        finally {
+            setDialogMessage.current?.(message);
+        }
     }, [ onSubmit ]);
 
     return (
@@ -153,6 +197,7 @@ const Container = () => {
                         </Button>
                     </div>
                 </fieldset>
+                { messageDialogMemo }
             </Paper>
         </div>
     );
